@@ -1,7 +1,6 @@
 package cvut.fit.matsnnik.hospital.entities;
 
 import javax.persistence.*;
-import java.util.Objects;
 
 @Entity
 @Table(name = "Doctor", schema = "public", catalog = "postgres")
@@ -22,18 +21,6 @@ public class DoctorEntity {
     @Basic
     @Column(name = "password")
     private String password;
-
-    public DoctorEntity(int did, String name, String surname, String dType, String password) {
-        this.did = did;
-        this.name = name;
-        this.surname = surname;
-        this.dType = dType;
-        this.password = password;
-    }
-
-    public DoctorEntity() {
-
-    }
 
     public int getDid() {
         return did;
@@ -67,24 +54,37 @@ public class DoctorEntity {
         this.dType = dType;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        DoctorEntity that = (DoctorEntity) o;
-        return did == that.did && Objects.equals(name, that.name) && Objects.equals(surname, that.surname) && Objects.equals(dType, that.dType);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(did, name, surname, dType);
-    }
-
     public String getPassword() {
         return password;
     }
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        DoctorEntity that = (DoctorEntity) o;
+
+        if (did != that.did) return false;
+        if (name != null ? !name.equals(that.name) : that.name != null) return false;
+        if (surname != null ? !surname.equals(that.surname) : that.surname != null) return false;
+        if (dType != null ? !dType.equals(that.dType) : that.dType != null) return false;
+        if (password != null ? !password.equals(that.password) : that.password != null) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = did;
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (surname != null ? surname.hashCode() : 0);
+        result = 31 * result + (dType != null ? dType.hashCode() : 0);
+        result = 31 * result + (password != null ? password.hashCode() : 0);
+        return result;
     }
 }

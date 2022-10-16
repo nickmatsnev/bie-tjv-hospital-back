@@ -1,0 +1,10 @@
+POST http://localhost:8081/doctors/register
+Content-Type: application/json
+
+{
+  "did": 2,
+  "name" : "NotNick",
+  "surname": "NotMatsnev",
+  "dType": "NotSurgeon",
+  "password": "Notnicknick"
+}

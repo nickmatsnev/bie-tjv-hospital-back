@@ -1,7 +1,6 @@
 package cvut.fit.matsnnik.hospital.entities;
 
 import javax.persistence.*;
-import java.util.Objects;
 
 @Entity
 @Table(name = "Patient", schema = "public", catalog = "postgres")
@@ -66,24 +65,39 @@ public class PatientEntity {
         this.age = age;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        PatientEntity that = (PatientEntity) o;
-        return pId == that.pId && age == that.age && Objects.equals(email, that.email) && Objects.equals(name, that.name) && Objects.equals(surname, that.surname);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(pId, email, name, surname, age);
-    }
-
     public String getPassword() {
         return password;
     }
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        PatientEntity that = (PatientEntity) o;
+
+        if (pId != that.pId) return false;
+        if (age != that.age) return false;
+        if (email != null ? !email.equals(that.email) : that.email != null) return false;
+        if (name != null ? !name.equals(that.name) : that.name != null) return false;
+        if (surname != null ? !surname.equals(that.surname) : that.surname != null) return false;
+        if (password != null ? !password.equals(that.password) : that.password != null) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = pId;
+        result = 31 * result + (email != null ? email.hashCode() : 0);
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (surname != null ? surname.hashCode() : 0);
+        result = 31 * result + age;
+        result = 31 * result + (password != null ? password.hashCode() : 0);
+        return result;
     }
 }
