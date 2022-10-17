@@ -1,5 +1,6 @@
 package cvut.fit.matsnnik.hospital.services.impls;
 
+import cvut.fit.matsnnik.hospital.entities.DoctorEntity;
 import cvut.fit.matsnnik.hospital.entities.PatientEntity;
 import cvut.fit.matsnnik.hospital.repositories.DoctorRepository;
 import cvut.fit.matsnnik.hospital.repositories.PatientRepository;
@@ -7,10 +8,14 @@ import cvut.fit.matsnnik.hospital.services.interfaces.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityExistsException;
+import javax.transaction.Transactional;
 import java.util.Optional;
 
+@Service
+@Transactional
 public class PatientServiceImpl implements PatientService {
 
     private final PatientRepository patientRepository;
@@ -22,10 +27,13 @@ public class PatientServiceImpl implements PatientService {
 
     @Override
     public PatientEntity create(PatientEntity entity) {
-        PatientEntity patientEntity = patientRepository.getReferenceById(entity.getpId());
+        System.out.println(entity.getName());
+        PatientEntity patientEntity = patientRepository.findPatientEntityByEmail(entity.getEmail());
+        System.out.println(entity.getName());
         if(patientEntity != null){
             throw new EntityExistsException();
         }
+        System.out.println(entity.getName());
         return patientRepository.saveAndFlush(entity);
     }
 
@@ -41,11 +49,34 @@ public class PatientServiceImpl implements PatientService {
 
     @Override
     public void update(PatientEntity newEntity) {
-
     }
 
     @Override
     public void delete(Integer integer) {
 
+    }
+
+    @Override
+    public PatientEntity findByEmail(String email) {
+        return findOrThrow(email);
+    }
+
+    @Override
+    public PatientEntity register(Integer pid, String email, String name, String surname, Integer age, String password) {
+        PatientEntity newPatient = new PatientEntity(pid, email, name, surname, age, password);
+        return create(newPatient);
+    }
+
+    @Override
+    public boolean login(String email, String password) {
+        PatientEntity patientEntity = findOrThrow(email);
+        return patientEntity.getPassword().equals(password);
+    }
+    private PatientEntity findOrThrow(String email) {
+        PatientEntity optionalPatient = patientRepository.findPatientEntityByEmail(email);
+        if (optionalPatient == null) {
+            throw new IllegalArgumentException();
+        }
+        return optionalPatient;
     }
 }

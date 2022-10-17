@@ -21,9 +21,6 @@ public class DoctorEntity {
     @Basic
     @Column(name = "password")
     private String password;
-    @Basic
-    @Column(name = "dtype")
-    private String dtype;
 
     public int getDid() {
         return did;
@@ -89,13 +86,5 @@ public class DoctorEntity {
         result = 31 * result + (dType != null ? dType.hashCode() : 0);
         result = 31 * result + (password != null ? password.hashCode() : 0);
         return result;
-    }
-
-    public String getDtype() {
-        return dtype;
-    }
-
-    public void setDtype(String dtype) {
-        this.dtype = dtype;
     }
 }
