@@ -18,7 +18,7 @@ public class DoctorServiceImpl implements DoctorService {
 
     public DoctorEntity registerDoctor(Integer did, String name, String surname, String dType, String password) {
         DoctorEntity newUser = new DoctorEntity(did, name, surname, dType, password);
-        System.out.println("We are here, " + name);
+
         return create(newUser);
     }
 

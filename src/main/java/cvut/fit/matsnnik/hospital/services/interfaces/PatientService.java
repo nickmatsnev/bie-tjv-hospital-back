@@ -21,4 +21,10 @@ public interface PatientService extends CrudService<PatientEntity, Integer> {
 
     @Override
     void delete(Integer integer);
+
+    PatientEntity findByEmail(String email);
+
+    PatientEntity register(Integer pid, String email, String name, String surname, Integer age, String password);
+
+    boolean login(String email, String password);
 }

@@ -18,4 +18,25 @@ Content-Type: application/json
   "password": "ilaila"
 }
 
+###
+POST http://localhost:8081/patients/register
+Content-Type: application/json
+
+{
+  "pid": 1,
+  "email" : "iliryabu@fit.cvut.vz",
+  "name" : "Ilya",
+  "surname": "Ryabukhin",
+  "age": 23,
+  "password": "ilaila"
+}
+
+###
+POST http://localhost:8081/patients/login
+Content-Type: application/json
+
+{
+  "email" : "iliryabu@fit.cvut.vz",
+  "password": "ilaila"
+}
 

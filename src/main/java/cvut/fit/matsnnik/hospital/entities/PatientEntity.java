@@ -8,10 +8,10 @@ import java.util.Set;
 @Entity
 @Table(name = "patient", schema = "public", catalog = "postgres")
 public class PatientEntity {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     @Id
     @Column(name = "pid")
-    private int pId;
+    private int pid;
     @Basic
     @Column(name = "email")
     private String email;
@@ -33,6 +33,10 @@ public class PatientEntity {
             joinColumns = @JoinColumn(name = "patient", referencedColumnName = "pid"))
     private Set<SessionEntity> sessionEntities = new LinkedHashSet<>();
 
+    public PatientEntity() {
+
+    }
+
     public Set<SessionEntity> getSessionEntities() {
         return sessionEntities;
     }
@@ -41,12 +45,12 @@ public class PatientEntity {
         this.sessionEntities = sessionEntities;
     }
 
-    public int getpId() {
-        return pId;
+    public int getpid() {
+        return pid;
     }
 
-    public void setpId(int pId) {
-        this.pId = pId;
+    public void setpid(int pId) {
+        this.pid = pId;
     }
 
     public String getEmail() {
@@ -81,17 +85,26 @@ public class PatientEntity {
         this.age = age;
     }
 
+    public PatientEntity(int pid, String email, String name, String surname, int age, String password) {
+        this.pid = pid;
+        this.email = email;
+        this.name = name;
+        this.surname = surname;
+        this.age = age;
+        this.password = password;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         PatientEntity that = (PatientEntity) o;
-        return pId == that.pId && age == that.age && Objects.equals(email, that.email) && Objects.equals(name, that.name) && Objects.equals(surname, that.surname);
+        return pid == that.pid && age == that.age && Objects.equals(email, that.email) && Objects.equals(name, that.name) && Objects.equals(surname, that.surname);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(pId, email, name, surname, age);
+        return Objects.hash(pid, email, name, surname, age);
     }
 
     public String getPassword() {
