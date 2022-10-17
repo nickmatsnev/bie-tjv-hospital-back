@@ -1,0 +1,21 @@
+POST http://localhost:8081/doctors/register
+Content-Type: application/json
+
+{
+  "did": 5,
+  "name" : "Ilya",
+  "surname": "Ryabukhin",
+  "dType": "Masseuse",
+  "password": "ilaila"
+}
+
+###
+POST http://localhost:8081/doctors/login
+Content-Type: application/json
+
+{
+  "did": 5,
+  "password": "ilaila"
+}
+
+
