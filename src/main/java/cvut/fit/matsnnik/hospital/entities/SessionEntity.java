@@ -1,26 +1,31 @@
 package cvut.fit.matsnnik.hospital.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.sql.Time;
+import java.util.LinkedHashSet;
+import java.util.Objects;
+import java.util.Set;
 
 @Entity
-@Table(name = "Operation", schema = "public", catalog = "postgres")
-public class OperationEntity {
+@Table(name = "session", schema = "public", catalog = "postgres")
+public class SessionEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "oid")
     private int oid;
     @Basic
-    @Column(name = "plannedStart")
+    @Column(name = "plannedstart")
     private Time plannedStart;
     @Basic
-    @Column(name = "plannedEnd")
+    @Column(name = "plannedend")
     private Time plannedEnd;
     @Basic
-    @Column(name = "actualStart")
+    @Column(name = "actualstart")
     private Time actualStart;
     @Basic
-    @Column(name = "actualEnd")
+    @Column(name = "actualend")
     private Time actualEnd;
     @Basic
     @Column(name = "status")
@@ -29,6 +34,29 @@ public class OperationEntity {
     @Column(name = "name")
     private String name;
 
+    @ManyToMany
+    private Set<DoctorEntity> doctors;
+
+
+    @ManyToMany
+    private Set<PatientEntity> patients;
+
+
+    public Set<PatientEntity> getPatients() {
+        return patients;
+    }
+
+    public void setPatients(Set<PatientEntity> patients) {
+        this.patients = patients;
+    }
+
+    public Set<DoctorEntity> getDoctors() {
+        return doctors;
+    }
+
+    public void setDoctors(Set<DoctorEntity> doctors) {
+        this.doctors = doctors;
+    }
     public int getOid() {
         return oid;
     }
@@ -89,29 +117,12 @@ public class OperationEntity {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
-        OperationEntity that = (OperationEntity) o;
-
-        if (oid != that.oid) return false;
-        if (status != that.status) return false;
-        if (plannedStart != null ? !plannedStart.equals(that.plannedStart) : that.plannedStart != null) return false;
-        if (plannedEnd != null ? !plannedEnd.equals(that.plannedEnd) : that.plannedEnd != null) return false;
-        if (actualStart != null ? !actualStart.equals(that.actualStart) : that.actualStart != null) return false;
-        if (actualEnd != null ? !actualEnd.equals(that.actualEnd) : that.actualEnd != null) return false;
-        if (name != null ? !name.equals(that.name) : that.name != null) return false;
-
-        return true;
+        SessionEntity that = (SessionEntity) o;
+        return oid == that.oid && status == that.status && Objects.equals(plannedStart, that.plannedStart) && Objects.equals(plannedEnd, that.plannedEnd) && Objects.equals(actualStart, that.actualStart) && Objects.equals(actualEnd, that.actualEnd) && Objects.equals(name, that.name);
     }
 
     @Override
     public int hashCode() {
-        int result = oid;
-        result = 31 * result + (plannedStart != null ? plannedStart.hashCode() : 0);
-        result = 31 * result + (plannedEnd != null ? plannedEnd.hashCode() : 0);
-        result = 31 * result + (actualStart != null ? actualStart.hashCode() : 0);
-        result = 31 * result + (actualEnd != null ? actualEnd.hashCode() : 0);
-        result = 31 * result + status;
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        return result;
+        return Objects.hash(oid, plannedStart, plannedEnd, actualStart, actualEnd, status, name);
     }
 }

@@ -3,12 +3,12 @@ package cvut.fit.matsnnik.hospital.entities;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "Patient", schema = "public", catalog = "postgres")
+@Table(name = "patient", schema = "public", catalog = "postgres")
 public class PatientEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "pID")
-    private int pId;
+    @Column(name = "pid")
+    private int pid;
     @Basic
     @Column(name = "email")
     private String email;
@@ -24,13 +24,12 @@ public class PatientEntity {
     @Basic
     @Column(name = "password")
     private String password;
-
-    public int getpId() {
-        return pId;
+    public int getpid() {
+        return pid;
     }
 
-    public void setpId(int pId) {
-        this.pId = pId;
+    public void setpid(int pId) {
+        this.pid = pId;
     }
 
     public String getEmail() {
@@ -80,7 +79,7 @@ public class PatientEntity {
 
         PatientEntity that = (PatientEntity) o;
 
-        if (pId != that.pId) return false;
+        if (pid != that.pid) return false;
         if (age != that.age) return false;
         if (email != null ? !email.equals(that.email) : that.email != null) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
@@ -92,7 +91,7 @@ public class PatientEntity {
 
     @Override
     public int hashCode() {
-        int result = pId;
+        int result = pid;
         result = 31 * result + (email != null ? email.hashCode() : 0);
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (surname != null ? surname.hashCode() : 0);

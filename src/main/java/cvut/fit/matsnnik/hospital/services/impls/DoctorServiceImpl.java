@@ -22,6 +22,10 @@ public class DoctorServiceImpl implements DoctorService {
         return create(newUser);
     }
 
+    public boolean loginDoctor(int did, String password){
+        DoctorEntity doctorEntity = findOrThrow(did);
+        return doctorEntity.getPassword().equals(password);
+    }
     @Autowired
     public DoctorServiceImpl(DoctorRepository doctorRepository) {
         this.doctorRepository = doctorRepository;
@@ -35,7 +39,7 @@ public class DoctorServiceImpl implements DoctorService {
            throw new EntityExistsException();
        }
        System.out.println("all is good, because we are in service impl, " + entity.getName());
-       return doctorRepository.save(entity);
+       return doctorRepository.saveAndFlush(entity);
     }
 
     @Override
@@ -56,5 +60,17 @@ public class DoctorServiceImpl implements DoctorService {
     @Override
     public void delete(Integer integer) {
 
+    }
+    @Override
+    public DoctorEntity findByDid(int did) {
+        return findOrThrow(did);
+    }
+
+    private DoctorEntity findOrThrow(int did) {
+        DoctorEntity optionalDoctor = doctorRepository.findDoctorEntityByDid(did);
+        if (optionalDoctor == null) {
+            throw new IllegalArgumentException();
+        }
+        return optionalDoctor;
     }
 }

@@ -1,23 +1,23 @@
 package cvut.fit.matsnnik.hospital.services.interfaces;
 
-import cvut.fit.matsnnik.hospital.entities.OperationEntity;
+import cvut.fit.matsnnik.hospital.entities.SessionEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.util.Optional;
 
-public interface OperationService extends CrudService<OperationEntity, Integer> {
+public interface OperationService extends CrudService<SessionEntity, Integer> {
     @Override
-    OperationEntity create(OperationEntity entity);
+    SessionEntity create(SessionEntity entity);
 
     @Override
-    Optional<OperationEntity> readById(Integer integer);
+    Optional<SessionEntity> readById(Integer integer);
 
     @Override
-    Page<OperationEntity> readAll(Pageable pageable);
+    Page<SessionEntity> readAll(Pageable pageable);
 
     @Override
-    void update(OperationEntity newEntity);
+    void update(SessionEntity newEntity);
 
     @Override
     void delete(Integer integer);

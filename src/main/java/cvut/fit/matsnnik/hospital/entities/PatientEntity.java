@@ -1,14 +1,16 @@
 package cvut.fit.matsnnik.hospital.entities;
 
 import javax.persistence.*;
+import java.util.LinkedHashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity
-@Table(name = "Patient", schema = "public", catalog = "postgres")
+@Table(name = "patient", schema = "public", catalog = "postgres")
 public class PatientEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "pID")
+    @Column(name = "pid")
     private int pId;
     @Basic
     @Column(name = "email")
@@ -25,6 +27,19 @@ public class PatientEntity {
     @Basic
     @Column(name = "password")
     private String password;
+
+    @ManyToMany
+    @JoinTable(name = "session",
+            joinColumns = @JoinColumn(name = "patient", referencedColumnName = "pid"))
+    private Set<SessionEntity> sessionEntities = new LinkedHashSet<>();
+
+    public Set<SessionEntity> getSessionEntities() {
+        return sessionEntities;
+    }
+
+    public void setSessionEntities(Set<SessionEntity> sessionEntities) {
+        this.sessionEntities = sessionEntities;
+    }
 
     public int getpId() {
         return pId;

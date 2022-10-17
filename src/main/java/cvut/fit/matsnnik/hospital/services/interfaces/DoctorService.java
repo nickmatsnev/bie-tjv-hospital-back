@@ -21,6 +21,7 @@ public interface DoctorService extends CrudService<DoctorEntity, Integer> {
 
     @Override
     void delete(Integer integer);
-
+    DoctorEntity findByDid(int did);
     DoctorEntity registerDoctor(Integer did, String name, String surname, String dType, String password);
+    boolean loginDoctor(int did, String password);
 }

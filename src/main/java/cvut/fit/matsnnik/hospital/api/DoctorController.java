@@ -1,6 +1,8 @@
 package cvut.fit.matsnnik.hospital.api;
 
 import cvut.fit.matsnnik.hospital.api.dtos.DoctorDTO;
+import cvut.fit.matsnnik.hospital.api.dtos.DoctorLoginDTO;
+import cvut.fit.matsnnik.hospital.entities.DoctorEntity;
 import cvut.fit.matsnnik.hospital.services.interfaces.DoctorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -30,6 +32,24 @@ public class DoctorController {
         }
         return new ResponseEntity<>(
                 "{}",
+                HttpStatus.OK
+        );
+    }
+    @PostMapping("/login")
+    public ResponseEntity<String> login (@RequestBody DoctorLoginDTO doctor){
+        try{
+            System.out.println(doctor.getPassword());
+            boolean hasLoggedIn = doctorService.loginDoctor(doctor.getDid(), doctor.getPassword());
+            System.out.println(hasLoggedIn);
+            if (!hasLoggedIn){
+                throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
+            }
+        }catch (IllegalArgumentException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+        DoctorEntity ent = doctorService.findByDid(doctor.getDid());
+        return new ResponseEntity<>(
+                "\"" + ent + "\"",
                 HttpStatus.OK
         );
     }
