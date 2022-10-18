@@ -1,5 +1,7 @@
 package cvut.fit.matsnnik.hospital.api.dtos;
 
+import cvut.fit.matsnnik.hospital.entities.PatientEntity;
+
 public class PatientDTO {
     private Integer pid;
     private String email;
@@ -63,5 +65,9 @@ public class PatientDTO {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public PatientEntity toEntity(){
+        return new PatientEntity(pid, email, name, surname, age, password);
     }
 }

@@ -23,12 +23,12 @@ POST http://localhost:8081/patients/register
 Content-Type: application/json
 
 {
-  "pid": 1,
-  "email" : "iliryabu@fit.cvut.vz",
-  "name" : "Ilya",
-  "surname": "Ryabukhin",
-  "age": 23,
-  "password": "ilaila"
+  "pid": 2,
+  "email" : "grech@dan.com",
+  "name" : "Daniel",
+  "surname": "Grechany",
+  "age": 22,
+  "password": "dandan"
 }
 
 ###
@@ -36,7 +36,26 @@ POST http://localhost:8081/patients/login
 Content-Type: application/json
 
 {
-  "email" : "iliryabu@fit.cvut.vz",
-  "password": "ilaila"
+  "email" : "grech@dan.com",
+  "password": "dandan"
 }
 
+###
+GET http://localhost:8081/patients/1
+
+###
+GET http://localhost:8081/doctors/2
+
+
+###
+PUT http://localhost:8081/patients/2
+Content-Type: application/json
+
+{
+  "pid": 2,
+  "email" : "grech@dan.com",
+  "name" : "Daniel",
+  "surname": "Grechany",
+  "age": 22,
+  "password": "dandan"
+}

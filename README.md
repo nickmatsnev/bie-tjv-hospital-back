@@ -8,11 +8,13 @@ This is a project for BIE-TJV implemented by Nikita Matsnev in 2022 winter semes
 The domain is hospital where Patients with known email(unique), name and surname can have 
 Session at some specific time
 and there are some Doctors at each session, and we know about them their name, surname and
-specialization. we can determine actual time of Session after it is done and we track it by its status 
+specialization. we can determine actual time of Session after it is done, and we track it by its status 
 and each patient has a medical records book where all the performed sessions are seen and also the information 
 about receiving doctors. Doctors can see finished and upcoming Sessions. They can create Session slots.
 There are several constraints such as Doctor cannot be at two Sessions at the same or overlapping time.
 Patient cannot attend several Sessions at the same or overlapping time.
+
+Patients and Doctors are assigned to the hospital.
 
 ### 1.1. Server
 Server will be implemented in Java Spring. I wil use `jdk18` and `Java 17`. Spring Web will be used

@@ -26,16 +26,22 @@ public class DoctorEntity {
     private String password;
 
     @ManyToMany
-    @JoinTable(name = "session",
-            joinColumns = @JoinColumn(name = "doctor", referencedColumnName = "did"))
-    private Set<SessionEntity> sessionEntities = new LinkedHashSet<>();
+    @JoinTable(
+            name = "session",
+            joinColumns = @JoinColumn(name = "doctor"),
+            inverseJoinColumns = @JoinColumn(name = "oid"))
+    private Set<SessionEntity> sessions = new LinkedHashSet<>();
+
+    public Set<SessionEntity> getSessions() {
+        return sessions;
+    }
 
     public Set<SessionEntity> getSessionEntities() {
-        return sessionEntities;
+        return sessions;
     }
 
     public void setSessionEntities(Set<SessionEntity> sessionEntities) {
-        this.sessionEntities = sessionEntities;
+        this.sessions = sessionEntities;
     }
 
     public DoctorEntity(int did, String name, String surname, String dType, String password) {

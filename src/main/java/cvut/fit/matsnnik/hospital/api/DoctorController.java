@@ -6,10 +6,7 @@ import cvut.fit.matsnnik.hospital.entities.DoctorEntity;
 import cvut.fit.matsnnik.hospital.services.interfaces.DoctorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -52,5 +49,15 @@ public class DoctorController {
                 "\"" + ent + "\"",
                 HttpStatus.OK
         );
+    }
+    @GetMapping("/{did}")
+    public ResponseEntity<DoctorDTO> getDoctor(@PathVariable("did") int did){
+        DoctorEntity doctorEntity = doctorService.findByDid(did);
+        DoctorDTO doctorDTO = new DoctorDTO(doctorEntity.getDid(),
+                doctorEntity.getName(),
+                doctorEntity.getSurname(),
+                doctorEntity.getdType(),
+                doctorEntity.getPassword());
+        return new ResponseEntity<>(doctorDTO, HttpStatus.OK);
     }
 }

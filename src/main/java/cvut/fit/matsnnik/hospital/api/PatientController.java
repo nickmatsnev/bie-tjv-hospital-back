@@ -10,10 +10,7 @@ import cvut.fit.matsnnik.hospital.services.interfaces.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 @RestController
@@ -50,6 +47,32 @@ public class PatientController {
         PatientEntity ent = patientService.findByEmail(patient.getEmail());
         return new ResponseEntity<>(
                 "\"" + ent + "\"",
+                HttpStatus.OK
+        );
+    }
+
+    @GetMapping("/{pid}")
+    public ResponseEntity<PatientDTO> getPatient(@PathVariable("pid") int pid){
+        PatientEntity patientEntity = patientService.findByPid(pid);
+        PatientDTO patientDTO = new PatientDTO(patientEntity.getpid(),
+                patientEntity.getEmail(),
+                patientEntity.getName(),
+                patientEntity.getSurname(),
+                patientEntity.getAge(),
+                patientEntity.getPassword());
+        return new ResponseEntity<>(patientDTO, HttpStatus.OK);
+    }
+
+    @PutMapping("/{pid}")
+    public ResponseEntity<String> update(@RequestBody PatientDTO patientDTO, @PathVariable("pid") int pid){
+        try{
+            PatientEntity patientEntity = patientDTO.toEntity();
+            patientService.updatePatient(patientEntity, pid);
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT);
+        }
+        return new ResponseEntity<>(
+                "{}",
                 HttpStatus.OK
         );
     }

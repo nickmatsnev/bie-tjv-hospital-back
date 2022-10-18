@@ -28,23 +28,27 @@ public class PatientEntity {
     @Column(name = "password")
     private String password;
 
+
     @ManyToMany
-    @JoinTable(name = "session",
-            joinColumns = @JoinColumn(name = "patient", referencedColumnName = "pid"))
-    private Set<SessionEntity> sessionEntities = new LinkedHashSet<>();
+    @JoinTable(
+            name = "session",
+            joinColumns = @JoinColumn(name = "patient"),
+            inverseJoinColumns = @JoinColumn(name = "oid"))
+    private Set<SessionEntity> sessions = new LinkedHashSet<>();
+
+
+    public Set<SessionEntity> getSessions() {
+        return sessions;
+    }
+
+    public void setSessions(Set<SessionEntity> sessions) {
+        this.sessions = sessions;
+    }
+
 
     public PatientEntity() {
 
     }
-
-    public Set<SessionEntity> getSessionEntities() {
-        return sessionEntities;
-    }
-
-    public void setSessionEntities(Set<SessionEntity> sessionEntities) {
-        this.sessionEntities = sessionEntities;
-    }
-
     public int getpid() {
         return pid;
     }

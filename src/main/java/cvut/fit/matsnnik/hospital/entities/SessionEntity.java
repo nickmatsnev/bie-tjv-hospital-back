@@ -3,6 +3,7 @@ package cvut.fit.matsnnik.hospital.entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import javax.print.Doc;
 import java.sql.Time;
 import java.util.LinkedHashSet;
 import java.util.Objects;
@@ -34,12 +35,21 @@ public class SessionEntity {
     @Column(name = "name")
     private String name;
 
-    @ManyToMany
-    private Set<DoctorEntity> doctors;
+    @JsonIgnore
+    @ManyToMany(mappedBy = "sessions")
+    private Set<DoctorEntity> doctors = new LinkedHashSet<>();
 
 
-    @ManyToMany
-    private Set<PatientEntity> patients;
+    public Set<DoctorEntity> getDoctors() {
+        return doctors;
+    }
+
+    public void setDoctors(Set<DoctorEntity> doctors) {
+        this.doctors = doctors;
+    }
+    @JsonIgnore
+    @ManyToMany(mappedBy = "sessions")
+    private Set<PatientEntity> patients = new LinkedHashSet<>();
 
 
     public Set<PatientEntity> getPatients() {
@@ -48,14 +58,6 @@ public class SessionEntity {
 
     public void setPatients(Set<PatientEntity> patients) {
         this.patients = patients;
-    }
-
-    public Set<DoctorEntity> getDoctors() {
-        return doctors;
-    }
-
-    public void setDoctors(Set<DoctorEntity> doctors) {
-        this.doctors = doctors;
     }
     public int getOid() {
         return oid;

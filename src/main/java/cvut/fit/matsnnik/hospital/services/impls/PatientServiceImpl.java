@@ -62,6 +62,10 @@ public class PatientServiceImpl implements PatientService {
     }
 
     @Override
+    public PatientEntity findByPid(int pid){
+        return findOrThrow(pid);
+    }
+    @Override
     public PatientEntity register(Integer pid, String email, String name, String surname, Integer age, String password) {
         PatientEntity newPatient = new PatientEntity(pid, email, name, surname, age, password);
         return create(newPatient);
@@ -79,4 +83,19 @@ public class PatientServiceImpl implements PatientService {
         }
         return optionalPatient;
     }
+    private PatientEntity findOrThrow(int pid) {
+        PatientEntity optionalPatient = patientRepository.findPatientEntityByPid(pid);
+        if (optionalPatient == null) {
+            throw new IllegalArgumentException();
+        }
+        return optionalPatient;
+    }
+
+    @Override
+    public PatientEntity updatePatient(PatientEntity patientEntity, int pid) {
+        PatientEntity optionalPatient = patientRepository.findPatientEntityByPid(pid);
+        if (optionalPatient == null) { throw new IllegalArgumentException(); }
+        return patientRepository.saveAndFlush(patientEntity);
+    }
+
 }

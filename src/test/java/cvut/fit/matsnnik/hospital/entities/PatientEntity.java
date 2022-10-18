@@ -24,6 +24,15 @@ public class PatientEntity {
     @Basic
     @Column(name = "password")
     private String password;
+
+    public int getPid() {
+        return pid;
+    }
+
+    public void setPid(int pid) {
+        this.pid = pid;
+    }
+
     public int getpid() {
         return pid;
     }
