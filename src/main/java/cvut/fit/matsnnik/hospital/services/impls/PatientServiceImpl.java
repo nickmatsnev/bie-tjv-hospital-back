@@ -53,7 +53,7 @@ public class PatientServiceImpl implements PatientService {
 
     @Override
     public void delete(Integer integer) {
-
+    patientRepository.deleteById(integer);
     }
 
     @Override

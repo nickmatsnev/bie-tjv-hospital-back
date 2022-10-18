@@ -59,3 +59,18 @@ Content-Type: application/json
   "age": 22,
   "password": "dandan"
 }
+###
+PUT http://localhost:8081/doctors/5
+Content-Type: application/json
+
+{
+  "did": 5,
+  "name" : "Ilya",
+  "surname": "Ryabukhin",
+  "dType": "Masseuse",
+  "password": "ilaila"
+}
+###
+DELETE http://localhost:8081/doctors/6
+###
+DELETE http://localhost:8081/patients/3

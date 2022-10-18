@@ -1,6 +1,7 @@
 package cvut.fit.matsnnik.hospital.services.impls;
 
 import cvut.fit.matsnnik.hospital.entities.DoctorEntity;
+import cvut.fit.matsnnik.hospital.entities.PatientEntity;
 import cvut.fit.matsnnik.hospital.repositories.DoctorRepository;
 import cvut.fit.matsnnik.hospital.services.interfaces.DoctorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,7 +60,7 @@ public class DoctorServiceImpl implements DoctorService {
 
     @Override
     public void delete(Integer integer) {
-
+        doctorRepository.deleteById(integer);
     }
     @Override
     public DoctorEntity findByDid(int did) {
@@ -72,5 +73,11 @@ public class DoctorServiceImpl implements DoctorService {
             throw new IllegalArgumentException();
         }
         return optionalDoctor;
+    }
+    @Override
+    public DoctorEntity updateDoctor(DoctorEntity doctorEntity, Integer did) {
+        DoctorEntity optionalDoctor = doctorRepository.findDoctorEntityByDid(did);
+        if (optionalDoctor == null) { throw new IllegalArgumentException(); }
+        return doctorRepository.saveAndFlush(doctorEntity);
     }
 }

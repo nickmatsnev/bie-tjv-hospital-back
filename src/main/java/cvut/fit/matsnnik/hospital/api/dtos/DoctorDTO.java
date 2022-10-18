@@ -1,5 +1,6 @@
 package cvut.fit.matsnnik.hospital.api.dtos;
 
+import cvut.fit.matsnnik.hospital.entities.DoctorEntity;
 import cvut.fit.matsnnik.hospital.entities.PatientEntity;
 
 public class DoctorDTO {
@@ -57,4 +58,7 @@ public class DoctorDTO {
         this.password = password;
     }
 
+    public DoctorEntity toEntity(){
+        return new DoctorEntity(did, name, surname, dType, password);
+    }
 }

@@ -2,8 +2,11 @@ package cvut.fit.matsnnik.hospital.api;
 
 import cvut.fit.matsnnik.hospital.api.dtos.DoctorDTO;
 import cvut.fit.matsnnik.hospital.api.dtos.DoctorLoginDTO;
+import cvut.fit.matsnnik.hospital.api.dtos.PatientDTO;
 import cvut.fit.matsnnik.hospital.entities.DoctorEntity;
+import cvut.fit.matsnnik.hospital.entities.PatientEntity;
 import cvut.fit.matsnnik.hospital.services.interfaces.DoctorService;
+import org.hibernate.loader.plan.build.spi.ExpandingQuerySpace;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -59,5 +62,31 @@ public class DoctorController {
                 doctorEntity.getdType(),
                 doctorEntity.getPassword());
         return new ResponseEntity<>(doctorDTO, HttpStatus.OK);
+    }
+
+    @PutMapping("/{did}")
+    public ResponseEntity<String> update(@RequestBody DoctorDTO doctorDTO, @PathVariable("did") Integer did){
+        try{
+            DoctorEntity doctorEntity = doctorDTO.toEntity();
+            doctorService.updateDoctor(doctorEntity, did);
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT);
+        }
+        return new ResponseEntity<>(
+                "{}",
+                HttpStatus.OK
+        );
+    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> delete(@PathVariable("id") int id){
+        try {
+            doctorService.delete(id);
+        } catch(Exception e){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(
+                "{}",
+                HttpStatus.OK
+        );
     }
 }

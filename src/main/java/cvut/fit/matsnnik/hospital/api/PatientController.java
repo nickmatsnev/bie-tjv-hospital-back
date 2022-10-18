@@ -7,6 +7,7 @@ import cvut.fit.matsnnik.hospital.api.dtos.PatientLoginDTO;
 import cvut.fit.matsnnik.hospital.entities.DoctorEntity;
 import cvut.fit.matsnnik.hospital.entities.PatientEntity;
 import cvut.fit.matsnnik.hospital.services.interfaces.PatientService;
+import org.aspectj.lang.annotation.DeclareError;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -70,6 +71,19 @@ public class PatientController {
             patientService.updatePatient(patientEntity, pid);
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.CONFLICT);
+        }
+        return new ResponseEntity<>(
+                "{}",
+                HttpStatus.OK
+        );
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> delete(@PathVariable("id") Integer id){
+        try{
+            patientService.delete(id);
+        }catch(Exception e){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>(
                 "{}",

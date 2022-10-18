@@ -20,6 +20,19 @@ Patients and Doctors are assigned to the hospital.
 Server will be implemented in Java Spring. I wil use `jdk18` and `Java 17`. Spring Web will be used
 to provide RestAPI.
 
+#### API Endpoints:
+##### 1. Patients:
+`GET /patients/{id}` - gets patient by id \
+`PUT /patients/{id}` - updates patient with id \
+`DELETE /patients/{id}` - deletes patient with id \
+`POST /patients/register` - registers patient with id and given body \
+`POST /patients/login` - check if patient with email exists and password matches
+##### 2. Doctors:
+`GET /doctors/{id}` - gets doctor by id \
+`PUT /doctors/{id}` - updates doctor with id \
+`DELETE /doctors/{id}` - deletes doctor with id \
+`POST /doctors/register` - registers doctor with id and given body \
+`POST /doctors/login` - check if doctor with email exists and password matches
 ### 1.2. Web client
 I am planning on using the Reactive Stack and Spring WebFlux, but it might differ as it is quite uncertain now.
 
