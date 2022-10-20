@@ -28,7 +28,7 @@ public class DoctorEntity {
     @ManyToMany
     @JoinTable(
             name = "session",
-            joinColumns = @JoinColumn(name = "doctor"),
+            joinColumns = @JoinColumn(name = "doctors"),
             inverseJoinColumns = @JoinColumn(name = "oid"))
     private Set<SessionEntity> sessions = new LinkedHashSet<>();
 

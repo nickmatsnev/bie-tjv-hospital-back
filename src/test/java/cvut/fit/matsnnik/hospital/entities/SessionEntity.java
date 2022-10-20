@@ -29,10 +29,10 @@ public class SessionEntity {
     @Column(name = "name")
     private String name;
     @Basic
-    @Column(name = "doctor")
+    @Column(name = "doctors")
     private int doctor;
     @Basic
-    @Column(name = "patient")
+    @Column(name = "patients")
     private int patient;
 
     public int getOid() {
