@@ -27,6 +27,8 @@ public interface SessionService extends CrudService<SessionEntity, Integer> {
 
     SessionEntity updateSession(SessionEntity updatedSession, Integer oid);
 
+    SessionEntity findByOid(Integer oid);
+
     Set<PatientEntity> getPatientsById(Integer oid);
     Set<DoctorEntity> getDoctorsById(Integer oid);
 }

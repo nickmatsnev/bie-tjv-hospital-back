@@ -12,10 +12,7 @@ import cvut.fit.matsnnik.hospital.services.interfaces.SessionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.sql.Time;
@@ -41,35 +38,53 @@ public class SessionController {
     @PostMapping("/create")
     public ResponseEntity<String> create(@RequestBody SessionDTO session){
         try{
-            // convert doctorsDTO to doctors Entities
-            Set<DoctorEntity> doctorEntitySet = new LinkedHashSet<>();
-            for(DoctorDTO d : session.getDoctors()){
-                DoctorEntity doctorEntity = doctorService.findByDid(d.getDid());
-                doctorEntitySet.add(doctorEntity);
-            }
-
-            // convert patientsDTO to patients Entities
-            Set<PatientEntity> patientEntitySet = new LinkedHashSet<>();
-            for(PatientDTO p : session.getPatients()){
-                PatientEntity patientEntity = patientService.findByPid(p.getPid());
-                patientEntitySet.add(patientEntity);
-            }
-            System.out.println("DTO contents:");
-            for(DoctorEntity d : doctorEntitySet){
-                System.out.println(d.getName());
-            }
-            SessionEntity sessionEntity = new SessionEntity(new Time(session.getPlannedStart()),
-                    new Time(session.getPlannedEnd()),
-                    session.getName(),
-                    doctorEntitySet,
-                    patientEntitySet);
-
+            SessionEntity sessionEntity = session.toEntity();
             sessionService.create(sessionEntity);
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.CONFLICT);
         }
         return new ResponseEntity<>(
                 session.getName(),
+                HttpStatus.OK
+        );
+    }
+
+    @GetMapping("/{oid}")
+    public ResponseEntity<String> get(@PathVariable int oid){
+        try{
+            SessionEntity sessionEntity = sessionService.findByOid(oid);
+            sessionService.updateSession(sessionEntity, oid);
+        } catch (Exception e){
+            throw new ResponseStatusException(HttpStatus.CONFLICT);
+        }
+        return new ResponseEntity<>(
+                "{}",
+                HttpStatus.OK
+        );
+    }
+
+    @PutMapping("/{oid}")
+    public ResponseEntity<String> update(@PathVariable int oid, @RequestBody SessionDTO sessionDTO){
+        try{
+            SessionEntity sessionEntity = sessionDTO.toEntity();
+            sessionService.updateSession(sessionEntity, oid);
+        } catch (Exception e){
+            throw new ResponseStatusException(HttpStatus.CONFLICT);
+        }
+        return new ResponseEntity<>(
+                "{}",
+                HttpStatus.OK
+        );
+    }
+    @DeleteMapping("/{oid}")
+    public ResponseEntity<String> delete(@PathVariable int oid){
+        try{
+            sessionService.delete(oid);
+        } catch (Exception e){
+            throw new ResponseStatusException(HttpStatus.CONFLICT);
+        }
+        return new ResponseEntity<>(
+                "{}",
                 HttpStatus.OK
         );
     }

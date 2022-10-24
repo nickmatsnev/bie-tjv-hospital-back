@@ -81,26 +81,9 @@ POST http://localhost:8081/sessions/create
 Content-Type: application/json
 
 {
-  "name": "Test Session",
   "plannedStart": 1666268609,
   "plannedEnd": 1688268609,
-  "doctors": [
-    {
-      "did": 5,
-      "name": "Ilya",
-      "surname": "Ryabukhin",
-      "dType": "Masseuse",
-      "password": "ilaila"
-    }
-  ],
-  "patients": [
-    {
-      "pid": 2,
-      "email": "grech@dan.com",
-      "name": "Daniel",
-      "surname": "Grechany",
-      "age": 22,
-      "password": "dandan"
-    }
-  ]
+  "name": "Test Session",
+  "doctors": [{"did": 5,"name": "Ilya","surname": "Ryabukhin","dType": "Masseuse","password": "ilaila"}],
+  "patients": [{"pid": 2,"email": "grech@dan.com","name": "Daniel","surname": "Grechany","age": 22,"password": "dandan"}]
 }

@@ -75,6 +75,11 @@ public class SessionServiceImpl implements SessionService {
         return session.getDoctors();
     }
 
+    @Override
+    public SessionEntity findByOid(Integer oid) {
+        return findOrThrow(oid);
+    }
+
     private SessionEntity findOrThrow(Integer oid){
         SessionEntity optionalSession = sessionRepository.findSessionEntityByOid(oid);
         if (optionalSession == null) { throw new IllegalArgumentException(); }
