@@ -60,15 +60,15 @@ Content-Type: application/json
   "password": "dandan"
 }
 ###
-PUT http://localhost:8081/doctors/5
+PUT http://localhost:8081/doctors/3
 Content-Type: application/json
 
 {
-  "did": 5,
-  "name": "Ilya",
-  "surname": "Ryabukhin",
-  "dType": "Masseuse",
-  "password": "ilaila"
+  "did": 3,
+  "name": "Pooneh",
+  "surname": "Paknia",
+  "dType": "Neurobiologist",
+  "password": "ponpon"
 }
 ###
 DELETE http://localhost:8081/doctors/6
@@ -81,9 +81,32 @@ POST http://localhost:8081/sessions/create
 Content-Type: application/json
 
 {
-  "plannedStart": 1666268609,
-  "plannedEnd": 1688268609,
+  "plannedStart": 16666268609,
+  "plannedEnd": 16688268619,
+  "name": "Test Session",
+  "doctor": {"did": 5,"name": "Ilya","surname": "Ryabukhin","dType": "Masseuse","password": "ilaila"},
+  "patient": {"pid": 2,"email": "grech@dan.com","name": "Daniel","surname": "Grechany","age": 22,"password": "dandan"}
+}
+
+###
+PUT http://localhost:8081/sessions/session/22
+Content-Type: application/json
+
+{
+  "plannedStart": 16666268609,
+  "plannedEnd": 16688268619,
   "name": "Test Session",
   "doctors": [{"did": 5,"name": "Ilya","surname": "Ryabukhin","dType": "Masseuse","password": "ilaila"}],
   "patients": [{"pid": 2,"email": "grech@dan.com","name": "Daniel","surname": "Grechany","age": 22,"password": "dandan"}]
+}
+###
+POST http://localhost:8081/sessions/create
+Content-Type: application/json
+
+{
+  "plannedStart": 16666268609,
+  "plannedEnd": 16688268619,
+  "name": "Test Session",
+  "doctors": [1,2],
+  "patients": [1]
 }

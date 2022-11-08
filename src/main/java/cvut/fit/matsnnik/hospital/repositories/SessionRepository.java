@@ -8,5 +8,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Set;
 
 public interface SessionRepository extends JpaRepository<SessionEntity, Integer> {
-    public SessionEntity findSessionEntityByOid(Integer oid);
+    SessionEntity findSessionEntityByOid(Integer oid);
+
 }

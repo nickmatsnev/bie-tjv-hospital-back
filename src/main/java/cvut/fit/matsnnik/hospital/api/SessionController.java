@@ -38,6 +38,7 @@ public class SessionController {
     @PostMapping("/create")
     public ResponseEntity<String> create(@RequestBody SessionDTO session){
         try{
+            // session is passed absolutely correct
             SessionEntity sessionEntity = session.toEntity();
             sessionService.create(sessionEntity);
         } catch (Exception e) {
@@ -49,7 +50,7 @@ public class SessionController {
         );
     }
 
-    @GetMapping("/{oid}")
+    @GetMapping("/session/{oid}")
     public ResponseEntity<String> get(@PathVariable int oid){
         try{
             SessionEntity sessionEntity = sessionService.findByOid(oid);
@@ -63,7 +64,7 @@ public class SessionController {
         );
     }
 
-    @PutMapping("/{oid}")
+    @PutMapping("/session/{oid}")
     public ResponseEntity<String> update(@PathVariable int oid, @RequestBody SessionDTO sessionDTO){
         try{
             SessionEntity sessionEntity = sessionDTO.toEntity();
@@ -76,7 +77,7 @@ public class SessionController {
                 HttpStatus.OK
         );
     }
-    @DeleteMapping("/{oid}")
+    @DeleteMapping("/session/{oid}")
     public ResponseEntity<String> delete(@PathVariable int oid){
         try{
             sessionService.delete(oid);

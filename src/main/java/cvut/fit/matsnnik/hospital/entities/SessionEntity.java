@@ -37,44 +37,51 @@ public class SessionEntity {
     private String name;
 
     private static final AtomicInteger count = new AtomicInteger(0);
-    @JsonIgnore
-    @ManyToMany(mappedBy = "sessions")
-    private Set<DoctorEntity> doctors = new LinkedHashSet<>();
 
-    @JsonIgnore
-    @ManyToMany(mappedBy = "sessions")
-    private Set<PatientEntity> patients = new LinkedHashSet<>();
+    @ManyToOne
+    @JoinColumn(name = "doctor")
+    private DoctorEntity doctor = new DoctorEntity();
+
+
+    @ManyToOne
+    @JoinColumn(name = "patient")
+    private PatientEntity patient = new PatientEntity();
+
+    public DoctorEntity getDoctor() {
+        return doctor;
+    }
+
+    public void setDoctor(DoctorEntity doctor) {
+        this.doctor = doctor;
+    }
+
+    public PatientEntity getPatient() {
+        return patient;
+    }
+
+    public void setPatient(PatientEntity patient) {
+        this.patient = patient;
+    }
 
     public SessionEntity(Time plannedStart, Time plannedEnd, String name,
-                         Set<DoctorEntity> doctors, Set<PatientEntity> patients) {
+                         DoctorEntity doctor, PatientEntity patient) {
         this.plannedStart = plannedStart;
         this.plannedEnd = plannedEnd;
+        this.actualEnd = plannedEnd;
+        this.actualStart = plannedStart;
         this.name = name;
         this.status = (System.currentTimeMillis() < plannedEnd.getTime()) ? ((System.currentTimeMillis() < plannedStart.getTime()) ? 0 : 1) : 2;
         // 0 is not started entity, 1 is started and 2 is finished
-        this.doctors = doctors;
-        this.patients = patients;
+        this.doctor = doctor;
+        this.patient = patient;
         this.oid = count.incrementAndGet();
     }
 
     public SessionEntity() {
+        this.oid = count.incrementAndGet();
     }
 
-    public Set<DoctorEntity> getDoctors() {
-        return doctors;
-    }
 
-    public void setDoctors(Set<DoctorEntity> doctors) {
-        this.doctors = doctors;
-    }
-
-    public Set<PatientEntity> getPatients() {
-        return patients;
-    }
-
-    public void setPatients(Set<PatientEntity> patients) {
-        this.patients = patients;
-    }
     public int getOid() {
         return oid;
     }

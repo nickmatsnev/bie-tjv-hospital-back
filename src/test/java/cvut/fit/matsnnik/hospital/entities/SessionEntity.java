@@ -29,11 +29,17 @@ public class SessionEntity {
     @Column(name = "name")
     private String name;
     @Basic
-    @Column(name = "doctors")
+    @Column(name = "doctor")
     private int doctor;
     @Basic
-    @Column(name = "patients")
+    @Column(name = "patient")
     private int patient;
+    @Basic
+    @Column(name = "doctor")
+    private Integer doctors;
+    @Basic
+    @Column(name = "patient")
+    private Integer patients;
 
     public int getOid() {
         return oid;
@@ -139,5 +145,21 @@ public class SessionEntity {
         result = 31 * result + doctor;
         result = 31 * result + patient;
         return result;
+    }
+
+    public Integer getDoctors() {
+        return doctors;
+    }
+
+    public void setDoctors(Integer doctors) {
+        this.doctors = doctors;
+    }
+
+    public Integer getPatients() {
+        return patients;
+    }
+
+    public void setPatients(Integer patients) {
+        this.patients = patients;
     }
 }

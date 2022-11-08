@@ -60,19 +60,28 @@ public class SessionServiceImpl implements SessionService {
     @Override
     public SessionEntity updateSession(SessionEntity updatedSession, Integer oid) {
         if(sessionRepository.findSessionEntityByOid(oid) == null) { throw new IllegalArgumentException(); }
-        return sessionRepository.saveAndFlush(updatedSession);
+        else {
+            SessionEntity existingSession = sessionRepository.findSessionEntityByOid(oid);
+            existingSession.setName(updatedSession.getName());
+            existingSession.setActualStart(updatedSession.getActualStart());
+            existingSession.setActualEnd(updatedSession.getActualEnd());
+            existingSession.setDoctor(updatedSession.getDoctor());
+            existingSession.setPatient(updatedSession.getPatient());
+            existingSession.setStatus(updatedSession.getStatus());
+            return sessionRepository.saveAndFlush(existingSession);
+        }
     }
 
     @Override
-    public Set<PatientEntity> getPatientsById(Integer oid) {
+    public PatientEntity getPatientById(Integer oid) {
         SessionEntity session = findOrThrow(oid);
-        return session.getPatients();
+        return session.getPatient();
     }
 
     @Override
-    public Set<DoctorEntity> getDoctorsById(Integer oid) {
+    public DoctorEntity getDoctorById(Integer oid) {
         SessionEntity session = findOrThrow(oid);
-        return session.getDoctors();
+        return session.getDoctor();
     }
 
     @Override

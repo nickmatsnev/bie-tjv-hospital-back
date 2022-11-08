@@ -64,6 +64,18 @@ public class PatientController {
         return new ResponseEntity<>(patientDTO, HttpStatus.OK);
     }
 
+    @GetMapping("/email/{email}")
+    public ResponseEntity<PatientDTO> getPatientByEmail(@PathVariable("email") String email){
+        PatientEntity patientEntity = patientService.findByEmail(email);
+        PatientDTO patientDTO = new PatientDTO(patientEntity.getpid(),
+                patientEntity.getEmail(),
+                patientEntity.getName(),
+                patientEntity.getSurname(),
+                patientEntity.getAge(),
+                patientEntity.getPassword());
+        return new ResponseEntity<>(patientDTO, HttpStatus.OK);
+    }
+
     @PutMapping("/{pid}")
     public ResponseEntity<String> update(@RequestBody PatientDTO patientDTO, @PathVariable("pid") int pid){
         try{

@@ -28,15 +28,11 @@ public class PatientEntity {
     @Column(name = "password")
     private String password;
 
-
-    @ManyToMany
-    @JoinTable(
-            name = "session",
-            joinColumns = @JoinColumn(name = "patients"),
-            inverseJoinColumns = @JoinColumn(name = "oid"))
+    @OneToMany(mappedBy = "patient")
     private Set<SessionEntity> sessions = new LinkedHashSet<>();
 
-
+    @ManyToMany(mappedBy = "patientsOfTheHospital")
+    private Set<DoctorEntity> doctorsOfTheHospital;
     public Set<SessionEntity> getSessions() {
         return sessions;
     }

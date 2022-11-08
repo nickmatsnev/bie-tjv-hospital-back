@@ -49,10 +49,11 @@ public class DoctorController {
         }
         DoctorEntity ent = doctorService.findByDid(doctor.getDid());
         return new ResponseEntity<>(
-                "\"" + ent + "\"",
+                ent.getDid().toString(),
                 HttpStatus.OK
         );
     }
+
     @GetMapping("/{did}")
     public ResponseEntity<DoctorDTO> getDoctor(@PathVariable("did") int did){
         DoctorEntity doctorEntity = doctorService.findByDid(did);
