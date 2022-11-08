@@ -1,5 +1,7 @@
 package cvut.fit.matsnnik.hospital.entities;
 
+import net.bytebuddy.implementation.bind.annotation.IgnoreForBinding;
+
 import javax.persistence.*;
 import java.util.LinkedHashSet;
 import java.util.Objects;
@@ -25,20 +27,27 @@ public class DoctorEntity {
     @Column(name = "password")
     private String password;
 
+    @OneToMany(mappedBy = "doctor")
+    private Set<SessionEntity> sessions = new LinkedHashSet<>();
     @ManyToMany
-    @JoinTable(name = "session",
-            joinColumns = @JoinColumn(name = "doctor", referencedColumnName = "did"))
-    private Set<SessionEntity> sessionEntities = new LinkedHashSet<>();
+    @JoinTable(
+            name = "hospital",
+            joinColumns = @JoinColumn(name = "doctors"),
+            inverseJoinColumns = @JoinColumn(name = "patients"))
+    private Set<PatientEntity> patientsOfTheHospital;
+    public Set<SessionEntity> getSessions() {
+        return sessions;
+    }
 
     public Set<SessionEntity> getSessionEntities() {
-        return sessionEntities;
+        return sessions;
     }
 
     public void setSessionEntities(Set<SessionEntity> sessionEntities) {
-        this.sessionEntities = sessionEntities;
+        this.sessions = sessionEntities;
     }
 
-    public DoctorEntity(int did, String name, String surname, String dType, String password) {
+    public DoctorEntity(Integer did, String name, String surname, String dType, String password) {
         this.did = did;
         this.name = name;
         this.surname = surname;
@@ -50,7 +59,7 @@ public class DoctorEntity {
 
     }
 
-    public int getDid() {
+    public Integer getDid() {
         return did;
     }
 

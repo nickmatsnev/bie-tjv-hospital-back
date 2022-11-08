@@ -2,14 +2,14 @@ package cvut.fit.matsnnik.hospital.api;
 
 import cvut.fit.matsnnik.hospital.api.dtos.DoctorDTO;
 import cvut.fit.matsnnik.hospital.api.dtos.DoctorLoginDTO;
+import cvut.fit.matsnnik.hospital.api.dtos.PatientDTO;
 import cvut.fit.matsnnik.hospital.entities.DoctorEntity;
+import cvut.fit.matsnnik.hospital.entities.PatientEntity;
 import cvut.fit.matsnnik.hospital.services.interfaces.DoctorService;
+import org.hibernate.loader.plan.build.spi.ExpandingQuerySpace;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -49,7 +49,44 @@ public class DoctorController {
         }
         DoctorEntity ent = doctorService.findByDid(doctor.getDid());
         return new ResponseEntity<>(
-                "\"" + ent + "\"",
+                ent.getDid().toString(),
+                HttpStatus.OK
+        );
+    }
+
+    @GetMapping("/{did}")
+    public ResponseEntity<DoctorDTO> getDoctor(@PathVariable("did") int did){
+        DoctorEntity doctorEntity = doctorService.findByDid(did);
+        DoctorDTO doctorDTO = new DoctorDTO(doctorEntity.getDid(),
+                doctorEntity.getName(),
+                doctorEntity.getSurname(),
+                doctorEntity.getdType(),
+                doctorEntity.getPassword());
+        return new ResponseEntity<>(doctorDTO, HttpStatus.OK);
+    }
+
+    @PutMapping("/{did}")
+    public ResponseEntity<String> update(@RequestBody DoctorDTO doctorDTO, @PathVariable("did") Integer did){
+        try{
+            DoctorEntity doctorEntity = doctorDTO.toEntity();
+            doctorService.updateDoctor(doctorEntity, did);
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT);
+        }
+        return new ResponseEntity<>(
+                "{}",
+                HttpStatus.OK
+        );
+    }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> delete(@PathVariable("id") int id){
+        try {
+            doctorService.delete(id);
+        } catch(Exception e){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(
+                "{}",
                 HttpStatus.OK
         );
     }

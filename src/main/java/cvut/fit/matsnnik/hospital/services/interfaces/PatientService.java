@@ -23,7 +23,9 @@ public interface PatientService extends CrudService<PatientEntity, Integer> {
     void delete(Integer integer);
 
     PatientEntity findByEmail(String email);
+    PatientEntity findByPid(int pid);
 
+    PatientEntity updatePatient(PatientEntity patientEntity, int pid);
     PatientEntity register(Integer pid, String email, String name, String surname, Integer age, String password);
 
     boolean login(String email, String password);

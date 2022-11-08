@@ -1,12 +1,15 @@
 package cvut.fit.matsnnik.hospital.services.interfaces;
 
+import cvut.fit.matsnnik.hospital.entities.DoctorEntity;
+import cvut.fit.matsnnik.hospital.entities.PatientEntity;
 import cvut.fit.matsnnik.hospital.entities.SessionEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import java.util.Optional;
+import java.util.Set;
 
-public interface OperationService extends CrudService<SessionEntity, Integer> {
+public interface SessionService extends CrudService<SessionEntity, Integer> {
     @Override
     SessionEntity create(SessionEntity entity);
 
@@ -21,4 +24,11 @@ public interface OperationService extends CrudService<SessionEntity, Integer> {
 
     @Override
     void delete(Integer integer);
+
+    SessionEntity updateSession(SessionEntity updatedSession, Integer oid);
+
+    SessionEntity findByOid(Integer oid);
+
+    PatientEntity getPatientById(Integer oid);
+    DoctorEntity getDoctorById(Integer oid);
 }

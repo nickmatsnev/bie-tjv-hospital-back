@@ -1,6 +1,0 @@
-POST http://localhost:8081/doctors/login
-Content-Type: application/json
-{
-  "did": 1,
-  "password": "nicknick"
-}

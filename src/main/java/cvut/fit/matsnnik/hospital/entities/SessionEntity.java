@@ -3,10 +3,12 @@ package cvut.fit.matsnnik.hospital.entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import javax.print.Doc;
 import java.sql.Time;
 import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicInteger;
 
 @Entity
 @Table(name = "session", schema = "public", catalog = "postgres")
@@ -34,29 +36,52 @@ public class SessionEntity {
     @Column(name = "name")
     private String name;
 
-    @ManyToMany
-    private Set<DoctorEntity> doctors;
+    private static final AtomicInteger count = new AtomicInteger(0);
+
+    @ManyToOne
+    @JoinColumn(name = "doctor")
+    private DoctorEntity doctor = new DoctorEntity();
 
 
-    @ManyToMany
-    private Set<PatientEntity> patients;
+    @ManyToOne
+    @JoinColumn(name = "patient")
+    private PatientEntity patient = new PatientEntity();
 
-
-    public Set<PatientEntity> getPatients() {
-        return patients;
+    public DoctorEntity getDoctor() {
+        return doctor;
     }
 
-    public void setPatients(Set<PatientEntity> patients) {
-        this.patients = patients;
+    public void setDoctor(DoctorEntity doctor) {
+        this.doctor = doctor;
     }
 
-    public Set<DoctorEntity> getDoctors() {
-        return doctors;
+    public PatientEntity getPatient() {
+        return patient;
     }
 
-    public void setDoctors(Set<DoctorEntity> doctors) {
-        this.doctors = doctors;
+    public void setPatient(PatientEntity patient) {
+        this.patient = patient;
     }
+
+    public SessionEntity(Time plannedStart, Time plannedEnd, String name,
+                         DoctorEntity doctor, PatientEntity patient) {
+        this.plannedStart = plannedStart;
+        this.plannedEnd = plannedEnd;
+        this.actualEnd = plannedEnd;
+        this.actualStart = plannedStart;
+        this.name = name;
+        this.status = (System.currentTimeMillis() < plannedEnd.getTime()) ? ((System.currentTimeMillis() < plannedStart.getTime()) ? 0 : 1) : 2;
+        // 0 is not started entity, 1 is started and 2 is finished
+        this.doctor = doctor;
+        this.patient = patient;
+        this.oid = count.incrementAndGet();
+    }
+
+    public SessionEntity() {
+        this.oid = count.incrementAndGet();
+    }
+
+
     public int getOid() {
         return oid;
     }
