@@ -14,6 +14,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/patients")
 public class PatientController {
@@ -101,5 +103,16 @@ public class PatientController {
                 "{}",
                 HttpStatus.OK
         );
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<PatientEntity>> getAllPatients(){
+        List<PatientEntity> patientEntities = null;
+        try {
+            patientEntities = patientService.getAll();
+        }catch (Exception e){
+            throw new ResponseStatusException(HttpStatus.CONFLICT);
+        }
+        return ResponseEntity.ok(patientEntities);
     }
 }

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityExistsException;
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -99,4 +100,8 @@ public class PatientServiceImpl implements PatientService {
         return patientRepository.saveAndFlush(patientEntity);
     }
 
+    @Override
+    public List<PatientEntity> getAll() {
+        return patientRepository.findAll();
+    }
 }
