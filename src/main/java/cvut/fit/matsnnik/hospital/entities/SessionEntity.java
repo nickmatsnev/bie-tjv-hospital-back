@@ -3,11 +3,8 @@ package cvut.fit.matsnnik.hospital.entities;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import javax.print.Doc;
 import java.sql.Time;
-import java.util.LinkedHashSet;
 import java.util.Objects;
-import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Entity
@@ -37,14 +34,14 @@ public class SessionEntity {
     private String name;
 
     private static final AtomicInteger count = new AtomicInteger(0);
-
+    @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "doctor")
+    @JoinColumn(name = "doctor_id")
     private DoctorEntity doctor = new DoctorEntity();
 
-
+    @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "patient")
+    @JoinColumn(name = "patient_id")
     private PatientEntity patient = new PatientEntity();
 
     public DoctorEntity getDoctor() {

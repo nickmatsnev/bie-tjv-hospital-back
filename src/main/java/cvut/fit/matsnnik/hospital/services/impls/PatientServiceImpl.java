@@ -49,6 +49,7 @@ public class PatientServiceImpl implements PatientService {
 
     @Override
     public void update(PatientEntity newEntity) {
+        patientRepository.saveAndFlush(newEntity);
     }
 
     @Override

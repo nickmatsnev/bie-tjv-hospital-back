@@ -81,23 +81,23 @@ POST http://localhost:8081/sessions/create
 Content-Type: application/json
 
 {
-  "plannedStart": 16666268609,
-  "plannedEnd": 16688268619,
-  "name": "Test Session",
-  "doctor": {"did": 5,"name": "Ilya","surname": "Ryabukhin","dType": "Masseuse","password": "ilaila"},
-  "patient": {"pid": 2,"email": "grech@dan.com","name": "Daniel","surname": "Grechany","age": 22,"password": "dandan"}
+  "plannedStart": 18866268609,
+  "plannedEnd": 18888268619,
+  "name": "Test Session 2",
+  "doctor": {"did": 2,"name": "Daniel","surname": "Grechaniy","dType": "Dentist","password": "dandan"},
+  "patient": {"pid": 2,"email": "grech@dan.com","name": "Daniel","surname": "Grechany","age": 23,"password": "dandan"}
 }
 
 ###
-PUT http://localhost:8081/sessions/session/22
+PUT http://localhost:8081/sessions/session/31
 Content-Type: application/json
 
 {
-  "plannedStart": 16666268609,
-  "plannedEnd": 16688268619,
+  "plannedStart": 18866268609,
+  "plannedEnd": 18888268619,
   "name": "Test Session",
-  "doctors": [{"did": 5,"name": "Ilya","surname": "Ryabukhin","dType": "Masseuse","password": "ilaila"}],
-  "patients": [{"pid": 2,"email": "grech@dan.com","name": "Daniel","surname": "Grechany","age": 22,"password": "dandan"}]
+  "doctor": {"did": 2,"name": "Daniel","surname": "Grechaniy","dType": "Dentist","password": "dandan"},
+  "patient": {"pid": 1,"email": "iliryabu@fit.cvut.vz","name": "Ilya","surname": "Ryabukhin","age": 23,"password": "ilaila"}
 }
 ###
 POST http://localhost:8081/sessions/create
@@ -107,6 +107,14 @@ Content-Type: application/json
   "plannedStart": 16666268609,
   "plannedEnd": 16688268619,
   "name": "Test Session",
-  "doctors": [1,2],
-  "patients": [1]
+  "doctor": 3,
+  "patient": 2
 }
+
+###
+GET http://localhost:8081/sessions/patient/1
+
+###
+GET http://localhost:8081/sessions/doctor/2
+###
+GET http://localhost:8081/sessions/session/52

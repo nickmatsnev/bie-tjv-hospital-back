@@ -15,8 +15,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.persistence.EntityExistsException;
+import javax.persistence.EntityNotFoundException;
 import java.sql.Time;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 @RestController
@@ -41,6 +44,7 @@ public class SessionController {
             // session is passed absolutely correct
             SessionEntity sessionEntity = session.toEntity();
             sessionService.create(sessionEntity);
+
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.CONFLICT);
         }
@@ -51,21 +55,16 @@ public class SessionController {
     }
 
     @GetMapping("/session/{oid}")
-    public ResponseEntity<String> get(@PathVariable int oid){
-        try{
-            SessionEntity sessionEntity = sessionService.findByOid(oid);
-            sessionService.updateSession(sessionEntity, oid);
-        } catch (Exception e){
-            throw new ResponseStatusException(HttpStatus.CONFLICT);
+    public ResponseEntity get(@PathVariable("oid") int oid){
+        SessionEntity sessionEntity = sessionService.findByOid(oid);
+        if(sessionEntity == null){
+            throw new EntityNotFoundException();
         }
-        return new ResponseEntity<>(
-                "{}",
-                HttpStatus.OK
-        );
+        return ResponseEntity.ok(sessionEntity);
     }
 
     @PutMapping("/session/{oid}")
-    public ResponseEntity<String> update(@PathVariable int oid, @RequestBody SessionDTO sessionDTO){
+    public ResponseEntity<String> update(@PathVariable("oid") int oid, @RequestBody SessionDTO sessionDTO){
         try{
             SessionEntity sessionEntity = sessionDTO.toEntity();
             sessionService.updateSession(sessionEntity, oid);
@@ -78,7 +77,7 @@ public class SessionController {
         );
     }
     @DeleteMapping("/session/{oid}")
-    public ResponseEntity<String> delete(@PathVariable int oid){
+    public ResponseEntity<String> delete(@PathVariable("oid") int oid){
         try{
             sessionService.delete(oid);
         } catch (Exception e){
@@ -88,5 +87,39 @@ public class SessionController {
                 "{}",
                 HttpStatus.OK
         );
+    }
+
+    @GetMapping("/patient/{id}")
+    public ResponseEntity<List<SessionEntity>> getByPatientId(@PathVariable("id") Integer id){
+        List<SessionEntity> sessions = null;
+        try{
+             PatientEntity patient = patientService.findByPid(id);
+             System.out.println(patient.getName());
+             sessions = sessionService.findAllByPatient(id);
+             for(SessionEntity session: sessions){
+                 System.out.println(session.getName());
+             }
+             System.out.println("ya pidaras");
+        } catch(Exception e){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+        return ResponseEntity.ok(sessions);
+    }
+    @GetMapping("/doctor/{id}")
+    public ResponseEntity<List<SessionEntity>> getByDoctorId(@PathVariable("id") Integer id){
+        List<SessionEntity> sessions = null;
+        try{
+            DoctorEntity doctor = doctorService.findByDid(id);
+            System.out.println(doctor.getName());
+            sessions = sessionService.findAllByDoctor(id);
+            for(SessionEntity session: sessions){
+                System.out.println(session.getName());
+            }
+            System.out.println("ya pidaras");
+        } catch(Exception e){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+        return ResponseEntity.ok(sessions);
+
     }
 }

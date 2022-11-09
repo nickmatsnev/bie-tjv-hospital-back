@@ -3,6 +3,7 @@ package cvut.fit.matsnnik.hospital.services.impls;
 import cvut.fit.matsnnik.hospital.entities.DoctorEntity;
 import cvut.fit.matsnnik.hospital.entities.PatientEntity;
 import cvut.fit.matsnnik.hospital.entities.SessionEntity;
+import cvut.fit.matsnnik.hospital.repositories.DoctorRepository;
 import cvut.fit.matsnnik.hospital.repositories.PatientRepository;
 import cvut.fit.matsnnik.hospital.repositories.SessionRepository;
 import cvut.fit.matsnnik.hospital.services.interfaces.SessionService;
@@ -13,19 +14,21 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityExistsException;
 import javax.transaction.Transactional;
-import java.util.LinkedHashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Service
 @Transactional
 public class SessionServiceImpl implements SessionService {
     private final SessionRepository sessionRepository;
-
-
+    private final PatientRepository patientRepository;
+    private final DoctorRepository doctorRepository;
     @Autowired
-    public SessionServiceImpl(SessionRepository sessionRepository) {
+    public SessionServiceImpl(SessionRepository sessionRepository,
+                              PatientRepository patientRepository,
+                              DoctorRepository doctorRepository) {
         this.sessionRepository = sessionRepository;
+        this.patientRepository = patientRepository;
+        this.doctorRepository = doctorRepository;
     }
 
     @Override
@@ -89,10 +92,21 @@ public class SessionServiceImpl implements SessionService {
         return findOrThrow(oid);
     }
 
+    @Override
+    public List<SessionEntity> findAllByPatient(Integer id) {
+        PatientEntity patient = patientRepository.findPatientEntityByPid(id);
+        return (List<SessionEntity>) sessionRepository.findSessionEntitiesByPatient(patient);
+    }
+
+    @Override
+    public List<SessionEntity> findAllByDoctor(Integer id) {
+        DoctorEntity doctor = doctorRepository.findDoctorEntityByDid(id);
+        return (List<SessionEntity>) sessionRepository.findSessionEntitiesByDoctor(doctor);
+    }
+
     private SessionEntity findOrThrow(Integer oid){
         SessionEntity optionalSession = sessionRepository.findSessionEntityByOid(oid);
         if (optionalSession == null) { throw new IllegalArgumentException(); }
         return optionalSession;
     }
-
 }
