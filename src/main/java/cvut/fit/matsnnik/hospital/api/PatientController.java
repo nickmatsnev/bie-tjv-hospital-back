@@ -107,12 +107,12 @@ public class PatientController {
 
     @GetMapping("/all")
     public ResponseEntity<List<PatientEntity>> getAllPatients(){
-        List<PatientEntity> patientEntities = null;
+        List<PatientEntity> patientEntities = patientService.getAll();
         try {
             patientEntities = patientService.getAll();
         }catch (Exception e){
             throw new ResponseStatusException(HttpStatus.CONFLICT);
         }
-        return ResponseEntity.ok(patientEntities);
+        return new ResponseEntity<>(patientEntities, HttpStatus.OK);
     }
 }

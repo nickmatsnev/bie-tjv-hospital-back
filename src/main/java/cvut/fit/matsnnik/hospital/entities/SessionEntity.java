@@ -1,6 +1,7 @@
 package cvut.fit.matsnnik.hospital.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import cvut.fit.matsnnik.hospital.api.dtos.SessionModel;
 
 import javax.persistence.*;
 import java.sql.Time;
@@ -146,5 +147,14 @@ public class SessionEntity {
     @Override
     public int hashCode() {
         return Objects.hash(oid, plannedStart, plannedEnd, actualStart, actualEnd, status, name);
+    }
+
+    public static SessionModel toModel(SessionEntity session){
+        SessionModel sessionModel = new SessionModel(session.getPlannedStart().getTime(),
+                session.getPlannedEnd().getTime(),
+                session.getName(),
+                session.getDoctor().getDid(),
+                session.getPatient().getpid());
+        return sessionModel;
     }
 }

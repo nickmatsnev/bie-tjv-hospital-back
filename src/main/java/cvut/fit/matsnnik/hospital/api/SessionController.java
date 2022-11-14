@@ -3,6 +3,7 @@ package cvut.fit.matsnnik.hospital.api;
 import cvut.fit.matsnnik.hospital.api.dtos.DoctorDTO;
 import cvut.fit.matsnnik.hospital.api.dtos.PatientDTO;
 import cvut.fit.matsnnik.hospital.api.dtos.SessionDTO;
+import cvut.fit.matsnnik.hospital.api.dtos.SessionModel;
 import cvut.fit.matsnnik.hospital.entities.DoctorEntity;
 import cvut.fit.matsnnik.hospital.entities.PatientEntity;
 import cvut.fit.matsnnik.hospital.entities.SessionEntity;
@@ -18,9 +19,7 @@ import org.springframework.web.server.ResponseStatusException;
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
 import java.sql.Time;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @RestController
 @RequestMapping("/sessions")
@@ -103,23 +102,19 @@ public class SessionController {
         } catch(Exception e){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
-        return ResponseEntity.ok(sessions);
+        return new ResponseEntity<>(sessions, HttpStatus.OK);
     }
     @GetMapping("/doctor/{id}")
-    public ResponseEntity<List<SessionEntity>> getByDoctorId(@PathVariable("id") Integer id){
-        List<SessionEntity> sessions = null;
+    public ResponseEntity getByDoctorId(@PathVariable("id") Integer id){
+        Collection<SessionModel> sessionModels;
         try{
             DoctorEntity doctor = doctorService.findByDid(id);
             System.out.println(doctor.getName());
-            sessions = sessionService.findAllByDoctor(id);
-            for(SessionEntity session: sessions){
-                System.out.println(session.getName());
-            }
-            System.out.println("ya pidaras");
+            sessionModels = sessionService.findAllByDoctor(id);
         } catch(Exception e){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
-        return ResponseEntity.ok(sessions);
-
+        return ResponseEntity.ok(sessionModels);
     }
+
 }

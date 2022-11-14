@@ -1,5 +1,6 @@
 package cvut.fit.matsnnik.hospital.services.impls;
 
+import cvut.fit.matsnnik.hospital.api.dtos.SessionModel;
 import cvut.fit.matsnnik.hospital.entities.DoctorEntity;
 import cvut.fit.matsnnik.hospital.entities.PatientEntity;
 import cvut.fit.matsnnik.hospital.entities.SessionEntity;
@@ -13,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityExistsException;
+import javax.persistence.EntityNotFoundException;
 import javax.transaction.Transactional;
 import java.util.*;
 
@@ -99,9 +101,15 @@ public class SessionServiceImpl implements SessionService {
     }
 
     @Override
-    public List<SessionEntity> findAllByDoctor(Integer id) {
-        DoctorEntity doctor = doctorRepository.findDoctorEntityByDid(id);
-        return (List<SessionEntity>) sessionRepository.findSessionEntitiesByDoctor(doctor);
+    public Collection<SessionModel> findAllByDoctor(Integer id) {
+        if (sessionRepository.findSessionEntitiesByDoctor(doctorRepository.findDoctorEntityByDid(id)) == null)
+            throw new EntityNotFoundException("No doctor with id " + id.toString() + " exists");
+        List<SessionModel> res = new ArrayList<>();
+        if (sessionRepository.findSessionEntitiesByDoctor(doctorRepository.findDoctorEntityByDid(id)) != null)
+            for (var event: sessionRepository.findSessionEntitiesByDoctor(doctorRepository.findDoctorEntityByDid(id)))
+                res.add(SessionEntity.toModel(event));
+
+        return res;
     }
 
     private SessionEntity findOrThrow(Integer oid){
