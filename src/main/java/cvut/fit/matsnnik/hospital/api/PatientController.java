@@ -28,12 +28,13 @@ public class PatientController {
     @PostMapping("/register")
     public ResponseEntity<String> register(@RequestBody PatientDTO patient){
         try{
+            System.out.println(patient.getName());
             patientService.register(patient.getPid(), patient.getEmail(), patient.getName(), patient.getSurname(), patient.getAge(), patient.getPassword());
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.CONFLICT);
         }
         return new ResponseEntity<>(
-                "{}",
+                "Patient created!",
                 HttpStatus.OK
         );
     }

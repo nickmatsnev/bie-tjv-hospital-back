@@ -1,9 +1,6 @@
 package cvut.fit.matsnnik.hospital.api;
 
-import cvut.fit.matsnnik.hospital.api.dtos.DoctorDTO;
-import cvut.fit.matsnnik.hospital.api.dtos.PatientDTO;
-import cvut.fit.matsnnik.hospital.api.dtos.SessionDTO;
-import cvut.fit.matsnnik.hospital.api.dtos.SessionModel;
+import cvut.fit.matsnnik.hospital.api.dtos.*;
 import cvut.fit.matsnnik.hospital.entities.DoctorEntity;
 import cvut.fit.matsnnik.hospital.entities.PatientEntity;
 import cvut.fit.matsnnik.hospital.entities.SessionEntity;
@@ -38,10 +35,18 @@ public class SessionController {
     }
 
     @PostMapping("/create")
-    public ResponseEntity<String> create(@RequestBody SessionDTO session){
+    public ResponseEntity<String> create(@RequestBody SessionActualDTO session){
         try{
             // session is passed absolutely correct
-            SessionEntity sessionEntity = session.toEntity();
+            PatientEntity patient = patientService.findByPid(Math.toIntExact(session.getPatient()));
+            DoctorEntity doctor = doctorService.findByDid(Math.toIntExact(session.getDoctor()));
+            SessionEntity sessionEntity = new SessionEntity(
+                    new Time(session.getPlannedStart()),
+                    new Time(session.getPlannedEnd()),
+                    session.getName(),
+                    doctor,
+                    patient);
+            System.out.println(session.getName());
             sessionService.create(sessionEntity);
 
         } catch (Exception e) {
