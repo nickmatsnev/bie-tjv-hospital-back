@@ -100,20 +100,16 @@ public class SessionController {
     }
 
     @GetMapping("/patient/{id}")
-    public ResponseEntity<List<SessionEntity>> getByPatientId(@PathVariable("id") Integer id){
-        List<SessionEntity> sessions = null;
+    public ResponseEntity getByPatientId(@PathVariable("id") Integer id){
+        Collection<SessionModel> sessionModels;
         try{
-             PatientEntity patient = patientService.findByPid(id);
-             System.out.println("patient name: " + patient.getName());
-             sessions = sessionService.findAllByPatient(id);
-             for(SessionEntity session: sessions){
-                 System.out.println("session name: " + session.getName());
-             }
-             System.out.println("ya pidaras");
+            PatientEntity patient = patientService.findByPid(id);
+            System.out.println("patient name: " + patient.getName());
+            sessionModels = sessionService.findAllByPatient(id);
         } catch(Exception e){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(sessions, HttpStatus.OK);
+        return ResponseEntity.ok(sessionModels);
     }
     @GetMapping("/doctor/{id}")
     public ResponseEntity getByDoctorId(@PathVariable("id") Integer id){

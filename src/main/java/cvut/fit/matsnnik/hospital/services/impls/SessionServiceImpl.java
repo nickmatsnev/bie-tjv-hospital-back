@@ -96,9 +96,15 @@ public class SessionServiceImpl implements SessionService {
     }
 
     @Override
-    public List<SessionEntity> findAllByPatient(Integer id) {
-        PatientEntity patient = patientRepository.findPatientEntityByPid(id);
-        return (List<SessionEntity>) sessionRepository.findSessionEntitiesByPatient(patient);
+    public Collection<SessionModel> findAllByPatient(Integer id) {
+        if (sessionRepository.findSessionEntitiesByPatient(patientRepository.findPatientEntityByPid(id)) == null)
+            throw new EntityNotFoundException("No patient with id " + id.toString() + " exists");
+        List<SessionModel> res = new ArrayList<>();
+        if (sessionRepository.findSessionEntitiesByPatient(patientRepository.findPatientEntityByPid(id)) != null)
+            for (var event: sessionRepository.findSessionEntitiesByPatient(patientRepository.findPatientEntityByPid(id)))
+                res.add(SessionEntity.toModel(event));
+
+        return res;
     }
 
     @Override
