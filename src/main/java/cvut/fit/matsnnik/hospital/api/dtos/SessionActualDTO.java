@@ -8,12 +8,12 @@ public class SessionActualDTO {
     private Long plannedEnd;
     private String name;
     private Long doctor;
-    private Long patient;
+    private String patient;
 
     public SessionActualDTO() {
     }
 
-    public SessionActualDTO(Long plannedStart, Long plannedEnd, String name, Long doctor, Long patient) {
+    public SessionActualDTO(Long plannedStart, Long plannedEnd, String name, Long doctor, String patient) {
         this.plannedStart = plannedStart;
         this.plannedEnd = plannedEnd;
         this.name = name;
@@ -53,11 +53,11 @@ public class SessionActualDTO {
         this.doctor = doctor;
     }
 
-    public Long getPatient() {
+    public String getPatient() {
         return patient;
     }
 
-    public void setPatient(Long patient) {
+    public void setPatient(String patient) {
         this.patient = patient;
     }
 

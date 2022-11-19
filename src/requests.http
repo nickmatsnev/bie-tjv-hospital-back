@@ -81,11 +81,11 @@ POST http://localhost:8081/sessions/create
 Content-Type: application/json
 
 {
-  "plannedStart": 12222,
-  "plannedEnd": 3333333,
-  "name": "Test Session 3",
-  "doctor": 3,
-  "patient": 4
+  "plannedStart": 33333,
+  "plannedEnd": 555555,
+  "name": "Test Session 4",
+  "doctor": 4,
+  "patient": "Nikita Matsnev"
 }
 
 ###

@@ -37,6 +37,7 @@ public class SessionServiceImpl implements SessionService {
     public SessionEntity create(SessionEntity entity) {
         SessionEntity sessionEntity = sessionRepository.findSessionEntityByOid(entity.getOid());
         if(sessionEntity != null){
+            System.out.println("function create in service of session");
             throw new EntityExistsException();
         }
         return sessionRepository.saveAndFlush(entity);

@@ -28,7 +28,7 @@ public class PatientController {
     @PostMapping("/register")
     public ResponseEntity<String> register(@RequestBody PatientDTO patient){
         try{
-            System.out.println(patient.getName());
+            System.out.println("patient name: " + patient.getName());
             patientService.register(patient.getPid(), patient.getEmail(), patient.getName(), patient.getSurname(), patient.getAge(), patient.getPassword());
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.CONFLICT);

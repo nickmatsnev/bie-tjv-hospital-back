@@ -32,4 +32,6 @@ public interface PatientService extends CrudService<PatientEntity, Integer> {
     boolean login(String email, String password);
 
     List<PatientEntity> getAll();
+
+    PatientEntity findByNameAndSurname(String name, String surname);
 }

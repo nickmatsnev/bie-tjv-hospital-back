@@ -38,15 +38,21 @@ public class SessionController {
     public ResponseEntity<String> create(@RequestBody SessionActualDTO session){
         try{
             // session is passed absolutely correct
-            PatientEntity patient = patientService.findByPid(Math.toIntExact(session.getPatient()));
+            String[] split = session.getPatient().split("\\s+");
+            String name = split[0];
+            String surname = split[1];
+            PatientEntity patient = patientService.findByNameAndSurname(name,surname);
+            System.out.println("sessions patientEnt.name when created: " + patient.getName());
+            System.out.println("doctor id which is sent to us" + session.getDoctor());
             DoctorEntity doctor = doctorService.findByDid(Math.toIntExact(session.getDoctor()));
+            System.out.println("sessions doctorEnt.name when created: " + doctor.getName());
             SessionEntity sessionEntity = new SessionEntity(
                     new Time(session.getPlannedStart()),
                     new Time(session.getPlannedEnd()),
                     session.getName(),
                     doctor,
                     patient);
-            System.out.println(session.getName());
+            System.out.println("patient: " + session.getPatient());
             sessionService.create(sessionEntity);
 
         } catch (Exception e) {
@@ -98,10 +104,10 @@ public class SessionController {
         List<SessionEntity> sessions = null;
         try{
              PatientEntity patient = patientService.findByPid(id);
-             System.out.println(patient.getName());
+             System.out.println("patient name: " + patient.getName());
              sessions = sessionService.findAllByPatient(id);
              for(SessionEntity session: sessions){
-                 System.out.println(session.getName());
+                 System.out.println("session name: " + session.getName());
              }
              System.out.println("ya pidaras");
         } catch(Exception e){
@@ -114,7 +120,7 @@ public class SessionController {
         Collection<SessionModel> sessionModels;
         try{
             DoctorEntity doctor = doctorService.findByDid(id);
-            System.out.println(doctor.getName());
+            System.out.println("doctor name: " + doctor.getName());
             sessionModels = sessionService.findAllByDoctor(id);
         } catch(Exception e){
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
