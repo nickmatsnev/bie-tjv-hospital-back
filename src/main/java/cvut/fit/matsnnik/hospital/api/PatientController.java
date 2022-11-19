@@ -14,6 +14,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/patients")
 public class PatientController {
@@ -26,12 +28,13 @@ public class PatientController {
     @PostMapping("/register")
     public ResponseEntity<String> register(@RequestBody PatientDTO patient){
         try{
+            System.out.println("patient name: " + patient.getName());
             patientService.register(patient.getPid(), patient.getEmail(), patient.getName(), patient.getSurname(), patient.getAge(), patient.getPassword());
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.CONFLICT);
         }
         return new ResponseEntity<>(
-                "{}",
+                "Patient created!",
                 HttpStatus.OK
         );
     }
@@ -101,5 +104,16 @@ public class PatientController {
                 "{}",
                 HttpStatus.OK
         );
+    }
+
+    @GetMapping("/all")
+    public ResponseEntity<List<PatientEntity>> getAllPatients(){
+        List<PatientEntity> patientEntities = patientService.getAll();
+        try {
+            patientEntities = patientService.getAll();
+        }catch (Exception e){
+            throw new ResponseStatusException(HttpStatus.CONFLICT);
+        }
+        return new ResponseEntity<>(patientEntities, HttpStatus.OK);
     }
 }

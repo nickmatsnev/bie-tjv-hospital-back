@@ -23,12 +23,12 @@ POST http://localhost:8081/patients/register
 Content-Type: application/json
 
 {
-  "pid": 2,
-  "email" : "grech@dan.com",
-  "name" : "Daniel",
-  "surname": "Grechany",
-  "age": 22,
-  "password": "dandan"
+  "pid": 3,
+  "email" : "matsn@nick.com",
+  "name" : "Nikita",
+  "surname": "Matsnev",
+  "age": 21,
+  "password": "nicknick"
 }
 
 ###
@@ -81,23 +81,23 @@ POST http://localhost:8081/sessions/create
 Content-Type: application/json
 
 {
-  "plannedStart": 16666268609,
-  "plannedEnd": 16688268619,
-  "name": "Test Session",
-  "doctor": {"did": 5,"name": "Ilya","surname": "Ryabukhin","dType": "Masseuse","password": "ilaila"},
-  "patient": {"pid": 2,"email": "grech@dan.com","name": "Daniel","surname": "Grechany","age": 22,"password": "dandan"}
+  "plannedStart": 33333,
+  "plannedEnd": 555555,
+  "name": "Test Session 4",
+  "doctor": 4,
+  "patient": "Nikita Matsnev"
 }
 
 ###
-PUT http://localhost:8081/sessions/session/22
+PUT http://localhost:8081/sessions/session/52
 Content-Type: application/json
 
 {
-  "plannedStart": 16666268609,
-  "plannedEnd": 16688268619,
+  "plannedStart": 18866268609,
+  "plannedEnd": 18888268619,
   "name": "Test Session",
-  "doctors": [{"did": 5,"name": "Ilya","surname": "Ryabukhin","dType": "Masseuse","password": "ilaila"}],
-  "patients": [{"pid": 2,"email": "grech@dan.com","name": "Daniel","surname": "Grechany","age": 22,"password": "dandan"}]
+  "doctor": {"did": 2,"name": "Daniel","surname": "Grechaniy","dType": "Dentist","password": "dandan"},
+  "patient": {"pid": 1,"email": "iliryabu@fit.cvut.vz","name": "Ilya","surname": "Ryabukhin","age": 23,"password": "ilaila"}
 }
 ###
 POST http://localhost:8081/sessions/create
@@ -107,6 +107,16 @@ Content-Type: application/json
   "plannedStart": 16666268609,
   "plannedEnd": 16688268619,
   "name": "Test Session",
-  "doctors": [1,2],
-  "patients": [1]
+  "doctor": 3,
+  "patient": 2
 }
+
+###
+GET http://localhost:8081/sessions/patient/1
+
+###
+GET http://localhost:8081/sessions/doctor/2
+###
+GET http://localhost:8081/sessions/session/52
+###
+GET http://localhost:8081/patients/all

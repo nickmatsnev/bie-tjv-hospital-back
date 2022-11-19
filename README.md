@@ -33,6 +33,13 @@ to provide RestAPI.
 `DELETE /doctors/{id}` - deletes doctor with id \
 `POST /doctors/register` - registers doctor with id and given body \
 `POST /doctors/login` - check if doctor with email exists and password matches
+##### 3. Sessions:
+`GET /session/{id}` - gets session by id \
+`PUT /session/{id}` - updates session with id \
+`DELETE /session/{id}` - deletes session with id \
+`POST /session/create` - creates session with id and given body \
+`POST /session/doctor/{id}` - gives this doctor sessions \
+`POST /session/patient/{id}` - gives this patient sessions
 ### 1.2. Web client
 I am planning on using the Reactive Stack and Spring WebFlux, and I use it. I also use Thymeleaf for templating. And Seneca's letters for contemplating:D.
 

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityExistsException;
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -27,13 +28,13 @@ public class PatientServiceImpl implements PatientService {
 
     @Override
     public PatientEntity create(PatientEntity entity) {
-        System.out.println(entity.getName());
+        System.out.println("session name: " + entity.getName());
         PatientEntity patientEntity = patientRepository.findPatientEntityByEmail(entity.getEmail());
-        System.out.println(entity.getName());
+        System.out.println("session name: " + entity.getName());
         if(patientEntity != null){
             throw new EntityExistsException();
         }
-        System.out.println(entity.getName());
+        System.out.println("session name: " + entity.getName());
         return patientRepository.saveAndFlush(entity);
     }
 
@@ -49,6 +50,7 @@ public class PatientServiceImpl implements PatientService {
 
     @Override
     public void update(PatientEntity newEntity) {
+        patientRepository.saveAndFlush(newEntity);
     }
 
     @Override
@@ -98,4 +100,16 @@ public class PatientServiceImpl implements PatientService {
         return patientRepository.saveAndFlush(patientEntity);
     }
 
+    @Override
+    public List<PatientEntity> getAll() {
+        return patientRepository.findAll();
+    }
+
+    @Override
+    public PatientEntity findByNameAndSurname(String name, String surname) {
+        System.out.println("patientServiceFindByNameAndSurname: ." + name + ". ." + surname + ".");
+        PatientEntity patient = patientRepository.findPatientEntityByNameAndSurname(name, surname);
+        System.out.println("patientServiceFindByNameAndSurname.patient.email: " + patient.getEmail());
+        return patient;
+    }
 }

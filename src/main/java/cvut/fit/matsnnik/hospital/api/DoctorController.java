@@ -25,7 +25,7 @@ public class DoctorController {
     @PostMapping("/register")
     public ResponseEntity<String> register(@RequestBody DoctorDTO doctor){
         try{
-            System.out.println(doctor.getName());
+            System.out.println("doctor name: " + doctor.getName());
             doctorService.registerDoctor(doctor.getDid(), doctor.getName(), doctor.getSurname(), doctor.getdType(), doctor.getPassword());
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.CONFLICT);
@@ -38,9 +38,9 @@ public class DoctorController {
     @PostMapping("/login")
     public ResponseEntity<String> login (@RequestBody DoctorLoginDTO doctor){
         try{
-            System.out.println(doctor.getPassword());
+            System.out.println("doctor password: " + doctor.getPassword());
             boolean hasLoggedIn = doctorService.loginDoctor(doctor.getDid(), doctor.getPassword());
-            System.out.println(hasLoggedIn);
+            System.out.println("hasLoggedIn:" + hasLoggedIn);
             if (!hasLoggedIn){
                 throw new ResponseStatusException(HttpStatus.UNAUTHORIZED);
             }

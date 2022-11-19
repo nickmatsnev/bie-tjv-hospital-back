@@ -1,5 +1,7 @@
 package cvut.fit.matsnnik.hospital.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.LinkedHashSet;
 import java.util.Objects;
@@ -27,10 +29,10 @@ public class PatientEntity {
     @Basic
     @Column(name = "password")
     private String password;
-
-    @OneToMany(mappedBy = "patient")
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "patient", fetch = FetchType.EAGER)
     private Set<SessionEntity> sessions = new LinkedHashSet<>();
-
+    @JsonIgnore
     @ManyToMany(mappedBy = "patientsOfTheHospital")
     private Set<DoctorEntity> doctorsOfTheHospital;
     public Set<SessionEntity> getSessions() {

@@ -55,7 +55,7 @@ public class DoctorServiceImpl implements DoctorService {
 
     @Override
     public void update(DoctorEntity newEntity) {
-
+        doctorRepository.save(newEntity);
     }
 
     @Override

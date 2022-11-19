@@ -1,8 +1,10 @@
 package cvut.fit.matsnnik.hospital.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import net.bytebuddy.implementation.bind.annotation.IgnoreForBinding;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -26,9 +28,10 @@ public class DoctorEntity {
     @Basic
     @Column(name = "password")
     private String password;
-
-    @OneToMany(mappedBy = "doctor")
-    private Set<SessionEntity> sessions = new LinkedHashSet<>();
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "doctor", fetch = FetchType.LAZY)
+    private Set<SessionEntity> sessions = new HashSet<>();
+    @JsonIgnore
     @ManyToMany
     @JoinTable(
             name = "hospital",
@@ -39,11 +42,8 @@ public class DoctorEntity {
         return sessions;
     }
 
-    public Set<SessionEntity> getSessionEntities() {
-        return sessions;
-    }
 
-    public void setSessionEntities(Set<SessionEntity> sessionEntities) {
+    public void setSessions(Set<SessionEntity> sessionEntities) {
         this.sessions = sessionEntities;
     }
 

@@ -1,13 +1,12 @@
 package cvut.fit.matsnnik.hospital.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import cvut.fit.matsnnik.hospital.api.dtos.SessionModel;
 
 import javax.persistence.*;
-import javax.print.Doc;
 import java.sql.Time;
-import java.util.LinkedHashSet;
+import java.util.Date;
 import java.util.Objects;
-import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Entity
@@ -37,15 +36,27 @@ public class SessionEntity {
     private String name;
 
     private static final AtomicInteger count = new AtomicInteger(0);
-
+    @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "doctor")
+    @JoinColumn(name = "doctor_id")
     private DoctorEntity doctor = new DoctorEntity();
 
-
+    @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "patient")
+    @JoinColumn(name = "patient_id")
     private PatientEntity patient = new PatientEntity();
+
+    public SessionEntity(int oid, Time plannedStart, Time plannedEnd, Time actualStart, Time actualEnd, int status, String name, DoctorEntity doctor, PatientEntity patient) {
+        this.oid = oid;
+        this.plannedStart = plannedStart;
+        this.plannedEnd = plannedEnd;
+        this.actualStart = actualStart;
+        this.actualEnd = actualEnd;
+        this.status = status;
+        this.name = name;
+        this.doctor = doctor;
+        this.patient = patient;
+    }
 
     public DoctorEntity getDoctor() {
         return doctor;
@@ -149,5 +160,14 @@ public class SessionEntity {
     @Override
     public int hashCode() {
         return Objects.hash(oid, plannedStart, plannedEnd, actualStart, actualEnd, status, name);
+    }
+
+    public static SessionModel toModel(SessionEntity session){
+        SessionModel sessionModel = new SessionModel(session.getPlannedStart().getTime(),
+                session.getPlannedEnd().getTime(),
+                session.getName(),
+                session.getDoctor().getDid(),
+                session.getPatient().getpid());
+        return sessionModel;
     }
 }
