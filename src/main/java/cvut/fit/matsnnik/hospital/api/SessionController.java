@@ -16,6 +16,7 @@ import org.springframework.web.server.ResponseStatusException;
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
 import java.sql.Time;
+import java.time.LocalTime;
 import java.util.*;
 
 @RestController
@@ -46,9 +47,18 @@ public class SessionController {
             System.out.println("doctor id which is sent to us" + session.getDoctor());
             DoctorEntity doctor = doctorService.findByDid(Math.toIntExact(session.getDoctor()));
             System.out.println("sessions doctorEnt.name when created: " + doctor.getName());
+            String[] timeStart = session.getPlannedStart().split ( ":" );
+            int hour = Integer.parseInt ( timeStart[0].trim() );
+            int min = Integer.parseInt ( timeStart[1].trim() );
+            Time start = new Time(hour, min, 0);
+
+            String[] timeEnd = session.getPlannedEnd().split ( ":" );
+            int hourEnd = Integer.parseInt ( timeEnd[0].trim() );
+            int minEnd = Integer.parseInt ( timeEnd[1].trim() );
+            Time end = new Time(hourEnd, minEnd, 0);
             SessionEntity sessionEntity = new SessionEntity(
-                    new Time(session.getPlannedStart()),
-                    new Time(session.getPlannedEnd()),
+                    start,
+                    end,
                     session.getName(),
                     doctor,
                     patient);

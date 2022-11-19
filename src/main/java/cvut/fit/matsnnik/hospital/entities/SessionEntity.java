@@ -5,6 +5,7 @@ import cvut.fit.matsnnik.hospital.api.dtos.SessionModel;
 
 import javax.persistence.*;
 import java.sql.Time;
+import java.util.Date;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -44,6 +45,18 @@ public class SessionEntity {
     @ManyToOne
     @JoinColumn(name = "patient_id")
     private PatientEntity patient = new PatientEntity();
+
+    public SessionEntity(int oid, Time plannedStart, Time plannedEnd, Time actualStart, Time actualEnd, int status, String name, DoctorEntity doctor, PatientEntity patient) {
+        this.oid = oid;
+        this.plannedStart = plannedStart;
+        this.plannedEnd = plannedEnd;
+        this.actualStart = actualStart;
+        this.actualEnd = actualEnd;
+        this.status = status;
+        this.name = name;
+        this.doctor = doctor;
+        this.patient = patient;
+    }
 
     public DoctorEntity getDoctor() {
         return doctor;
