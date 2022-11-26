@@ -68,12 +68,14 @@ public class SessionServiceImpl implements SessionService {
         if(sessionRepository.findSessionEntityByOid(oid) == null) { throw new IllegalArgumentException(); }
         else {
             SessionEntity existingSession = sessionRepository.findSessionEntityByOid(oid);
+            System.out.println("updateSession, session name1: " + existingSession.getName());
             existingSession.setName(updatedSession.getName());
             existingSession.setActualStart(updatedSession.getActualStart());
             existingSession.setActualEnd(updatedSession.getActualEnd());
             existingSession.setDoctor(updatedSession.getDoctor());
             existingSession.setPatient(updatedSession.getPatient());
             existingSession.setStatus(updatedSession.getStatus());
+            System.out.println("updateSession, session name2: " + existingSession.getName());
             return sessionRepository.saveAndFlush(existingSession);
         }
     }
@@ -117,6 +119,13 @@ public class SessionServiceImpl implements SessionService {
                 res.add(SessionEntity.toModel(event));
 
         return res;
+    }
+
+    @Override
+    public SessionEntity getByNameAndDoctor(String name, DoctorEntity doctor){
+        SessionEntity optionalSession = sessionRepository.findSessionEntityByNameAndDoctor(name, doctor);
+        if (optionalSession == null) { throw new IllegalArgumentException(); }
+        return optionalSession;
     }
 
     private SessionEntity findOrThrow(Integer oid){

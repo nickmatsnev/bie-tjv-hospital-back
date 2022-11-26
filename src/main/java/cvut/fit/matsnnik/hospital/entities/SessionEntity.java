@@ -88,6 +88,7 @@ public class SessionEntity {
         this.oid = count.incrementAndGet();
     }
 
+
     public SessionEntity() {
         this.oid = count.incrementAndGet();
     }

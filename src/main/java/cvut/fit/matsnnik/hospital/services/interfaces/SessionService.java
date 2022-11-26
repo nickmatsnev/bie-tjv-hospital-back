@@ -35,6 +35,8 @@ public interface SessionService extends CrudService<SessionEntity, Integer> {
     PatientEntity getPatientById(Integer oid);
     DoctorEntity getDoctorById(Integer oid);
 
+    SessionEntity getByNameAndDoctor(String name, DoctorEntity doctor);
+
     Collection<SessionModel> findAllByPatient(Integer id);
     Collection<SessionModel> findAllByDoctor(Integer id);
 }
