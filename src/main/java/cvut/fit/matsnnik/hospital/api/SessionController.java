@@ -27,6 +27,12 @@ public class SessionController {
     private final DoctorService doctorService;
     private final PatientService patientService;
 
+    private Time parseTime(String time){
+        String[] timeStart = time.split ( ":" );
+        int hour = Integer.parseInt ( timeStart[0].trim() );
+        int min = Integer.parseInt ( timeStart[1].trim() );
+        return new Time(hour, min, 0);
+    }
     @Autowired
     public SessionController(SessionService sessionService, DoctorService doctorService, PatientService patientService){
 
@@ -47,15 +53,10 @@ public class SessionController {
             System.out.println("doctor id which is sent to us" + session.getDoctor());
             DoctorEntity doctor = doctorService.findByDid(Math.toIntExact(session.getDoctor()));
             System.out.println("sessions doctorEnt.name when created: " + doctor.getName());
-            String[] timeStart = session.getPlannedStart().split ( ":" );
-            int hour = Integer.parseInt ( timeStart[0].trim() );
-            int min = Integer.parseInt ( timeStart[1].trim() );
-            Time start = new Time(hour, min, 0);
 
-            String[] timeEnd = session.getPlannedEnd().split ( ":" );
-            int hourEnd = Integer.parseInt ( timeEnd[0].trim() );
-            int minEnd = Integer.parseInt ( timeEnd[1].trim() );
-            Time end = new Time(hourEnd, minEnd, 0);
+            Time start = parseTime(session.getPlannedStart());
+
+            Time end = parseTime(session.getPlannedEnd());
             SessionEntity sessionEntity = new SessionEntity(
                     start,
                     end,
@@ -80,19 +81,62 @@ public class SessionController {
         if(sessionEntity == null){
             throw new EntityNotFoundException();
         }
-        return ResponseEntity.ok(sessionEntity);
+        SessionActualDTO sessionActualDTO = new SessionActualDTO(
+                sessionEntity.getPlannedStart().toString(),
+                sessionEntity.getPlannedEnd().toString(),
+                sessionEntity.getName(),
+                sessionEntity.getDoctor().getDid().longValue(),
+                sessionEntity.getPatient().getName() + " " + sessionEntity.getPatient().getSurname()
+        );
+        return ResponseEntity.ok(sessionActualDTO);
     }
 
-    @PutMapping("/session/{oid}")
-    public ResponseEntity<String> update(@PathVariable("oid") int oid, @RequestBody SessionDTO sessionDTO){
+    @GetMapping("/session/name/{doctor}/{name}")
+    public ResponseEntity getByNameAndDoctor(@PathVariable("doctor") int doctor, @PathVariable("name") String name){
+        System.out.println("name of the session get" + name);
+        SessionEntity sessionEntity = sessionService.getByNameAndDoctor(name, doctorService.findByDid(doctor));
+        if(sessionEntity == null){
+            throw new EntityNotFoundException();
+        }
+        SessionActualDTO sessionActualDTO = new SessionActualDTO(
+                sessionEntity.getPlannedStart().toString(),
+                sessionEntity.getPlannedEnd().toString(),
+                sessionEntity.getName(),
+                sessionEntity.getDoctor().getDid().longValue(),
+                sessionEntity.getPatient().getName() + " " + sessionEntity.getPatient().getSurname()
+        );
+        return ResponseEntity.ok(sessionActualDTO);
+    }
+    @PostMapping("/session/name/{doctor}/{name}")
+    public ResponseEntity<String> update(@PathVariable("doctor") int doctor, @PathVariable("name") String name, @RequestBody SessionActualDTO sessionDTO){
         try{
-            SessionEntity sessionEntity = sessionDTO.toEntity();
-            sessionService.updateSession(sessionEntity, oid);
+            System.out.println("name of the session in PUT query" + name);
+            SessionEntity sessionEntity = sessionService.getByNameAndDoctor(name, doctorService.findByDid(doctor));
+            if(sessionEntity == null){
+                throw new EntityNotFoundException();
+            }
+            System.out.println("name of the session in PUT query after found entity : " + name);
+            String[] split = sessionDTO.getPatient().split("\\s+");
+            String name1 = split[0];
+            String surname = split[1];
+            System.out.println(name1 + " "  + surname);
+            Time start = parseTime(sessionDTO.getPlannedStart());
+
+            System.out.println("my tut");
+            Time end = parseTime(sessionDTO.getPlannedEnd());
+            sessionEntity.setName(sessionDTO.getName());
+            System.out.println("my tut");
+            sessionEntity.setActualEnd(start);
+            sessionEntity.setActualStart(end);
+            System.out.println("my tut");
+            sessionEntity.setPatient(patientService.findByNameAndSurname(name1, surname));
+            sessionEntity.setDoctor(doctorService.findByDid(Math.toIntExact(sessionDTO.getDoctor())));
+            sessionService.updateSession(sessionEntity, sessionEntity.getOid());
         } catch (Exception e){
             throw new ResponseStatusException(HttpStatus.CONFLICT);
         }
         return new ResponseEntity<>(
-                "{}",
+                "successfully updated",
                 HttpStatus.OK
         );
     }

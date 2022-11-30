@@ -120,3 +120,18 @@ GET http://localhost:8081/sessions/doctor/2
 GET http://localhost:8081/sessions/session/52
 ###
 GET http://localhost:8081/patients/all
+###
+PUT http://localhost:8081/sessions/session/66
+Content-Type: application/json
+
+{
+  "plannedStart": "12:30",
+  "plannedEnd": "13:30",
+  "name": "Test Session",
+  "doctor": 1,
+  "patient": "Nikita Matsnev"
+}
+###
+GET http://localhost:8081/sessions/session/52
+###
+GET http://localhost:8081/sessions/session/name/2/Test%20Session%202

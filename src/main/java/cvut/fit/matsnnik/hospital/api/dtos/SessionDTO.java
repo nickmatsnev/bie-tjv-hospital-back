@@ -13,7 +13,6 @@ public class SessionDTO {
     private Long plannedStart;
     private Long plannedEnd;
     private String name;
-
     private DoctorDTO doctor;
     private PatientDTO patient;
 

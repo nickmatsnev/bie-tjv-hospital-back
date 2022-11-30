@@ -12,6 +12,8 @@ import java.util.Set;
 public interface SessionRepository extends JpaRepository<SessionEntity, Integer> {
     SessionEntity findSessionEntityByOid(int oid);
 
+    SessionEntity findSessionEntityByNameAndDoctor(String name, DoctorEntity doctor);
+
     Iterable<SessionEntity> findSessionEntitiesByPatient(PatientEntity patient);
     Iterable<SessionEntity> findSessionEntitiesByDoctor(DoctorEntity doctor);
 }
