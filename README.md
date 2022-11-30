@@ -26,10 +26,14 @@ I use relations of doctors and patients to hospital to get the list of available
 I will create an ability for patients to request sessions with the available doctors at the specific time based on the requested specialization using JPQL.
 
 ### 1.3. Complex business processes
-#### 1.3.1. Create session
-When session is created, doctor and patient are also updated since they have a relator to sessions.
-#### 1.3.1. Edit session
-When session is updated, it is first viewed by doctor, then updated and it is changed for the patient either.
+#### 1.3.1. Provide fun statistics
+Show the doctor with the biggest amount of unique visitors; 
+Show the doctor with the biggest amount of sessions;
+Show the patient with the biggest variety of doctors with regard to their specialization. 
+#### 1.3.2. Handle the end of the session
+Once the session is finished, its status must be changed, as well as the actual start and end times will be updated. Also doctor and patient entities have increase by 1 in the number of operations. 
+#### 1.4.2 Patient leaves the hospital to another
+Patient's log will be transferred to another hospital, his upcoming sessions shall be terminated, doctors will not have this user in available patients anymore, patient cannot choose previous doctors to request appointment anymore. 
 
 
 ### 1.4. Server
