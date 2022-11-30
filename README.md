@@ -3,7 +3,7 @@
 ### by Nikita Matsnev
 
 ## 1.  Description
-    
+#### 1.1. Domain    
 This is a project for BIE-TJV implemented by Nikita Matsnev in 2022 winter semester.
 The domain is hospital where Patients with known email(unique), name and surname can have 
 Session at some specific time
@@ -16,7 +16,23 @@ Patient cannot attend several Sessions at the same or overlapping time.
 Patient can have many sessions with many doctors and doctors can have many sessions with different patients.
 Patients and Doctors are assigned to the hospital. Doctors can treat patients within the hospital.
 
-### 1.1. Server
+### 1.2. Complex queries
+#### 1.2.1. JPA JPQL
+##### 1.2.1.1. Patients of hospital can see their doctors
+I use relations of patients to their sessions to retrieve information about doctors.
+##### 1.2.1.2. Doctors of hospital can see available patients
+I use relations of doctors and patients to hospital to get the list of available patients, and that will connect two tables 
+##### 1.2.1.3. Select doctors based on their type
+I will create an ability for patients to request sessions with the available doctors at the specific time based on the requested specialization using JPQL.
+
+### 1.3. Complex business processes
+#### 1.3.1. Create session
+When session is created, doctor and patient are also updated since they have a relator to sessions.
+#### 1.3.1. Edit session
+When session is updated, it is first viewed by doctor, then updated and it is changed for the patient either.
+
+
+### 1.4. Server
 Server will be implemented in Java Spring. I wil use `jdk18` and `Java 17`. Spring Web will be used
 to provide RestAPI.
 
@@ -42,10 +58,10 @@ to provide RestAPI.
 `GET /session/patient/{id}` - gets this patient sessions \
 `GET /session/name/{doctor}/{name}` - gets session with this doctor and name \
 `POST /session/name/{doctor}/{name}` - updates session with this doctor and name
-### 1.2. Web client
+### 1.5. Web client
 I am planning on using the Reactive Stack and Spring WebFlux, and I use it. I also use Thymeleaf for templating. And Seneca's letters for contemplating:D.
 
-### 1.3. Database
+### 1.6. Database
 PostgresSQL will be used, I have already created a schema. It has two many-to-many relations.
 ![Scheme](databaseScheme.png)
 ## 2. Build
