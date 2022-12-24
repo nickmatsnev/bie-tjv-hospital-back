@@ -1,16 +1,15 @@
 package cvut.fit.matsnnik.hospital.api.dtos;
 
 import cvut.fit.matsnnik.hospital.entities.DoctorEntity;
-import cvut.fit.matsnnik.hospital.entities.PatientEntity;
 
-public class DoctorDTO {
+public class DoctorModel {
     private Integer did;
     private String name;
     private String surname;
     private String dType;
     private String password;
 
-    public DoctorDTO(Integer did, String name, String surname, String dType, String password) {
+    public DoctorModel(Integer did, String name, String surname, String dType, String password) {
         this.did = did;
         this.name = name;
         this.surname = surname;

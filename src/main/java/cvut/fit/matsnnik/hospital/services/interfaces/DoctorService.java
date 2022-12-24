@@ -4,6 +4,8 @@ import cvut.fit.matsnnik.hospital.entities.DoctorEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import javax.print.Doc;
+import java.util.List;
 import java.util.Optional;
 
 public interface DoctorService extends CrudService<DoctorEntity, Integer> {
@@ -26,4 +28,6 @@ public interface DoctorService extends CrudService<DoctorEntity, Integer> {
     DoctorEntity updateDoctor(DoctorEntity doctorEntity, Integer did);
     DoctorEntity registerDoctor(Integer did, String name, String surname, String dType, String password);
     boolean loginDoctor(int did, String password);
+
+    Iterable<DoctorEntity> getAll();
 }

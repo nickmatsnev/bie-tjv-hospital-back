@@ -135,3 +135,42 @@ Content-Type: application/json
 GET http://localhost:8081/sessions/session/52
 ###
 GET http://localhost:8081/sessions/session/name/2/Test%20Session%202
+###
+POST http://localhost:8081/sessions/session/name/1/1
+Content-Type: application/json
+
+{
+  "plannedStart": "12:30",
+  "plannedEnd": "13:30",
+  "name": 1,
+  "doctor": 1,
+  "patient": "Williams Shakespeare"
+}
+###
+POST http://localhost:8081/requests/create
+Content-Type: application/json
+
+{
+  "patientId": 1,
+  "doctorId": 1,
+  "startTime": "02:30:00",
+  "endTime": "02:40:00",
+  "sessionName": "Headache"
+}
+
+###
+GET http://localhost:8081/requests/1
+
+###
+GET http://localhost:8081/requests/pending/doctor/1
+###
+GET http://localhost:8081/requests/rejected/doctor/1
+###
+GET http://localhost:8081/requests/pending/patient/1
+###
+GET http://localhost:8081/requests/rejected/patient/1
+###
+GET http://localhost:8081/requests/accept/Headache/1/1
+
+###
+GET http://localhost:8081/doctors/all
