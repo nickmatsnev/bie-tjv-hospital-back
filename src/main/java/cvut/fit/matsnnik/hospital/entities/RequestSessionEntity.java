@@ -36,8 +36,8 @@ public class RequestSessionEntity {
     public RequestSessionEntity() {
     }
 
-    public RequestSessionEntity(int requestId, int patientId, int doctorId, Time startTime, Time endTime, String sessionName, int status) {
-        this.requestId = requestId;
+    public RequestSessionEntity(int requestId, int patientId, int doctorId, Time startTime, Time endTime, String sessionName, int status) { 
+        this.requestId = count.incrementAndGet();
         this.patientId = patientId;
         this.doctorId = doctorId;
         this.startTime = startTime;

@@ -1,13 +1,9 @@
 package cvut.fit.matsnnik.hospital.api;
 
-import cvut.fit.matsnnik.hospital.api.dtos.DoctorDTO;
-import cvut.fit.matsnnik.hospital.api.dtos.DoctorLoginDTO;
 import cvut.fit.matsnnik.hospital.api.dtos.PatientDTO;
 import cvut.fit.matsnnik.hospital.api.dtos.PatientLoginDTO;
-import cvut.fit.matsnnik.hospital.entities.DoctorEntity;
 import cvut.fit.matsnnik.hospital.entities.PatientEntity;
 import cvut.fit.matsnnik.hospital.services.interfaces.PatientService;
-import org.aspectj.lang.annotation.DeclareError;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

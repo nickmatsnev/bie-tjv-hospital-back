@@ -14,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -67,24 +68,24 @@ public class RequestSessionServiceImpl implements RequestSessionService {
         return findOrThrow(requestId);
     }
     @Override
-    public Iterable<RequestSessionEntity> getPendingRequestsByDoctorId(Integer doctorId){
+    public List<RequestSessionEntity> getPendingRequestsByDoctorId(Integer doctorId){
         return requestSessionRepository.findRequestSessionEntitiesByStatusAndDoctorId(0, doctorId);
     }
     @Override
-    public Iterable<RequestSessionEntity> getRejectedRequestsByDoctorId(Integer doctorId){
+    public List<RequestSessionEntity> getRejectedRequestsByDoctorId(Integer doctorId){
         return requestSessionRepository.findRequestSessionEntitiesByStatusAndDoctorId(2, doctorId);
     }
     @Override
-    public Iterable<RequestSessionEntity> getPendingRequestsByPatientId(Integer doctorId){
+    public List<RequestSessionEntity> getPendingRequestsByPatientId(Integer doctorId){
         return requestSessionRepository.findRequestSessionEntitiesByStatusAndPatientId(0, doctorId);
     }
     @Override
-    public Iterable<RequestSessionEntity> getRejectedRequestsByPatientId(Integer doctorId){
+    public List<RequestSessionEntity> getRejectedRequestsByPatientId(Integer doctorId){
         return requestSessionRepository.findRequestSessionEntitiesByStatusAndPatientId(2, doctorId);
     }
     @Override
-    public SessionEntity acceptById(Integer requestId){
-        RequestSessionEntity requestSession = findOrThrow(requestId);
+    public SessionEntity accept(String sessionName, Integer patientId, Integer doctorId){
+        RequestSessionEntity requestSession = requestSessionRepository.getBySessionNameAndDoctorIdAndPatientId(sessionName, doctorId, patientId);
         requestSession.setStatus(1);
         SessionEntity sessionEntity = new SessionEntity(requestSession.getStartTime(),
                 requestSession.getEndTime(),
@@ -96,14 +97,18 @@ public class RequestSessionServiceImpl implements RequestSessionService {
         return sessionRepository.saveAndFlush(sessionEntity);
     }
     @Override
-    public RequestSessionEntity rejectById(Integer requestId){
-        RequestSessionEntity requestSession = findOrThrow(requestId);
+    public RequestSessionEntity reject(String sessionName, Integer patientId, Integer doctorId){
+        RequestSessionEntity requestSession = requestSessionRepository.getBySessionNameAndDoctorIdAndPatientId(sessionName, doctorId, patientId);
         requestSession.setStatus(2);
         return requestSessionRepository.saveAndFlush(requestSession);
     }
     @Override
     public RequestSessionEntity createByModel(RequestModel requestModel){
         return requestSessionRepository.saveAndFlush(requestModel.toEntity());
+    }
+    @Override
+    public RequestSessionEntity getEntityByNameAndDoctorAndPatient(String sessionName, Integer patientId, Integer doctorId){
+        return requestSessionRepository.getBySessionNameAndDoctorIdAndPatientId(sessionName, patientId, doctorId);
     }
 
     private RequestSessionEntity findOrThrow(Integer id){

@@ -6,6 +6,7 @@ import cvut.fit.matsnnik.hospital.entities.SessionEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface RequestSessionService extends CrudService<RequestSessionEntity, Integer> {
@@ -26,18 +27,19 @@ public interface RequestSessionService extends CrudService<RequestSessionEntity,
     void delete(Integer integer);
 
     public RequestSessionEntity getById(Integer requestId);
-    public Iterable<RequestSessionEntity> getPendingRequestsByDoctorId(Integer doctorId);
+    public List<RequestSessionEntity> getPendingRequestsByDoctorId(Integer doctorId);
 
-    public Iterable<RequestSessionEntity> getRejectedRequestsByDoctorId(Integer doctorId);
+    public List<RequestSessionEntity> getRejectedRequestsByDoctorId(Integer doctorId);
 
-    public Iterable<RequestSessionEntity> getPendingRequestsByPatientId(Integer doctorId);
+    public List<RequestSessionEntity> getPendingRequestsByPatientId(Integer doctorId);
 
-    public Iterable<RequestSessionEntity> getRejectedRequestsByPatientId(Integer doctorId);
+    public List<RequestSessionEntity> getRejectedRequestsByPatientId(Integer doctorId);
 
-    public SessionEntity acceptById(Integer requestId);
+    public SessionEntity accept(String sessionName, Integer patientId, Integer doctorId);
 
-    public RequestSessionEntity rejectById(Integer requestId);
+    public RequestSessionEntity reject(String sessionName, Integer patientId, Integer doctorId);
 
     public RequestSessionEntity createByModel(RequestModel requestModel);
+    public RequestSessionEntity getEntityByNameAndDoctorAndPatient(String sessionName, Integer patientId, Integer doctorId);
 
 }

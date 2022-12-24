@@ -1,22 +1,17 @@
 package cvut.fit.matsnnik.hospital.api.dtos;
 
-import cvut.fit.matsnnik.hospital.entities.DoctorEntity;
-import cvut.fit.matsnnik.hospital.entities.PatientEntity;
 import cvut.fit.matsnnik.hospital.entities.SessionEntity;
 
 import java.sql.Time;
-import java.util.HashSet;
-import java.util.LinkedHashSet;
-import java.util.Set;
 
 public class SessionDTO {
     private Long plannedStart;
     private Long plannedEnd;
     private String name;
-    private DoctorDTO doctor;
+    private DoctorModel doctor;
     private PatientDTO patient;
 
-    public SessionDTO(String name, Long plannedStart, Long plannedEnd, DoctorDTO doctor, PatientDTO patient) {
+    public SessionDTO(String name, Long plannedStart, Long plannedEnd, DoctorModel doctor, PatientDTO patient) {
         this.name = name;
         this.plannedStart = plannedStart;
         this.plannedEnd = plannedEnd;
@@ -48,11 +43,11 @@ public class SessionDTO {
         this.name = name;
     }
 
-    public DoctorDTO getDoctor() {
+    public DoctorModel getDoctor() {
         return doctor;
     }
 
-    public void setDoctor(DoctorDTO doctor) {
+    public void setDoctor(DoctorModel doctor) {
         this.doctor = doctor;
     }
 

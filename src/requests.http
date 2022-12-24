@@ -146,3 +146,31 @@ Content-Type: application/json
   "doctor": 1,
   "patient": "Williams Shakespeare"
 }
+###
+POST http://localhost:8081/requests/create
+Content-Type: application/json
+
+{
+  "patientId": 1,
+  "doctorId": 1,
+  "startTime": "02:30:00",
+  "endTime": "02:40:00",
+  "sessionName": "Headache"
+}
+
+###
+GET http://localhost:8081/requests/1
+
+###
+GET http://localhost:8081/requests/pending/doctor/1
+###
+GET http://localhost:8081/requests/rejected/doctor/1
+###
+GET http://localhost:8081/requests/pending/patient/1
+###
+GET http://localhost:8081/requests/rejected/patient/1
+###
+GET http://localhost:8081/requests/accept/Headache/1/1
+
+###
+GET http://localhost:8081/doctors/all
