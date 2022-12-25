@@ -40,7 +40,8 @@ public class SessionServiceImpl implements SessionService {
             System.out.println("function create in service of session");
             throw new EntityExistsException();
         }
-        return sessionRepository.saveAndFlush(entity);
+        sessionRepository.saveAndFlush(entity);
+        return entity;
     }
 
     @Override
@@ -55,7 +56,7 @@ public class SessionServiceImpl implements SessionService {
 
     @Override
     public void update(SessionEntity newEntity) {
-
+        sessionRepository.saveAndFlush(newEntity);
     }
 
     @Override

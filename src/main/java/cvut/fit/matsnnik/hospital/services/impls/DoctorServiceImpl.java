@@ -41,7 +41,8 @@ public class DoctorServiceImpl implements DoctorService {
            throw new EntityExistsException();
        }
        System.out.println("all is good, because we are in service impl, " + entity.getName());
-       return doctorRepository.saveAndFlush(entity);
+       doctorRepository.save(entity);
+       return entity;
     }
 
     @Override
@@ -79,7 +80,7 @@ public class DoctorServiceImpl implements DoctorService {
     public DoctorEntity updateDoctor(DoctorEntity doctorEntity, Integer did) {
         DoctorEntity optionalDoctor = doctorRepository.findDoctorEntityByDid(did);
         if (optionalDoctor == null) { throw new IllegalArgumentException(); }
-        return doctorRepository.saveAndFlush(doctorEntity);
+        return doctorRepository.save(doctorEntity);
     }
 
     @Override

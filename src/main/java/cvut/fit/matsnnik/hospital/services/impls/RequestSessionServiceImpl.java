@@ -38,7 +38,8 @@ public class RequestSessionServiceImpl implements RequestSessionService {
 
     @Override
     public RequestSessionEntity create(RequestSessionEntity entity) {
-        return requestSessionRepository.saveAndFlush(entity);
+        requestSessionRepository.saveAndFlush(entity);
+        return entity;
     }
 
     @Override
@@ -56,12 +57,13 @@ public class RequestSessionServiceImpl implements RequestSessionService {
 
     @Override
     public void update(RequestSessionEntity newEntity) {
+        requestSessionRepository.saveAndFlush(newEntity);
 
     }
 
     @Override
     public void delete(Integer integer) {
-
+        requestSessionRepository.deleteById(integer);
     }
     @Override
     public RequestSessionEntity getById(Integer requestId){

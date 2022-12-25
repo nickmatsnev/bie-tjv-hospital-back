@@ -6,12 +6,14 @@ import cvut.fit.matsnnik.hospital.entities.PatientEntity;
 import cvut.fit.matsnnik.hospital.entities.SessionEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+@Service
 public interface SessionService extends CrudService<SessionEntity, Integer> {
     @Override
     SessionEntity create(SessionEntity entity);

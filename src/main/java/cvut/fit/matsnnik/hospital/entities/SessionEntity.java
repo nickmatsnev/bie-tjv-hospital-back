@@ -39,12 +39,12 @@ public class SessionEntity {
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "doctor_id")
-    private DoctorEntity doctor = new DoctorEntity();
+    private DoctorEntity doctor;
 
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "patient_id")
-    private PatientEntity patient = new PatientEntity();
+    private PatientEntity patient;
 
     public SessionEntity(int oid, Time plannedStart, Time plannedEnd, Time actualStart, Time actualEnd, int status, String name, DoctorEntity doctor, PatientEntity patient) {
         this.oid = oid;
