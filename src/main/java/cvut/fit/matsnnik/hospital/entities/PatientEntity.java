@@ -1,6 +1,7 @@
 package cvut.fit.matsnnik.hospital.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import cvut.fit.matsnnik.hospital.api.dtos.PatientDTO;
 
 import javax.persistence.*;
 import java.util.LinkedHashSet;
@@ -115,5 +116,9 @@ public class PatientEntity {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public PatientDTO toModel(){
+        return new PatientDTO(pid, email, name, surname, age, password);
     }
 }

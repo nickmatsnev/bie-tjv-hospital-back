@@ -16,5 +16,4 @@ public interface RequestSessionRepository extends JpaRepository<RequestSessionEn
 
      RequestSessionEntity getBySessionNameAndDoctorIdAndPatientId(String sessionName,  Integer doctorId,Integer patientId);
 
-
 }

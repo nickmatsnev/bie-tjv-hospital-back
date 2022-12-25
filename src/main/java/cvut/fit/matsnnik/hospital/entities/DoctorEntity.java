@@ -1,6 +1,7 @@
 package cvut.fit.matsnnik.hospital.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import cvut.fit.matsnnik.hospital.api.dtos.DoctorModel;
 import net.bytebuddy.implementation.bind.annotation.IgnoreForBinding;
 
 import javax.persistence.*;
@@ -112,5 +113,9 @@ public class DoctorEntity {
         this.password = password;
     }
 
+
+    public DoctorModel toModel(){
+        return new DoctorModel(1, name, surname, dType, password);
+    }
 
 }

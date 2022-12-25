@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,7 +58,7 @@ public class DoctorController {
         }
         DoctorEntity ent = doctorService.findByDid(doctor.getDid());
         return new ResponseEntity<>(
-                ent.getDid().toString(),
+                "ent.getDid().toString()",
                 HttpStatus.OK
         );
     }
@@ -65,6 +66,9 @@ public class DoctorController {
     @GetMapping("/{did}")
     public ResponseEntity<DoctorModel> getDoctor(@PathVariable("did") int did){
         DoctorEntity doctorEntity = doctorService.findByDid(did);
+        if (doctorEntity == null){
+            throw new EntityNotFoundException();
+        }
         DoctorModel doctorDTO = new DoctorModel(doctorEntity.getDid(),
                 doctorEntity.getName(),
                 doctorEntity.getSurname(),

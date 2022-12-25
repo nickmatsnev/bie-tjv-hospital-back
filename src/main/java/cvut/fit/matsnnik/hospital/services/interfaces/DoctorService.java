@@ -3,11 +3,14 @@ package cvut.fit.matsnnik.hospital.services.interfaces;
 import cvut.fit.matsnnik.hospital.entities.DoctorEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import javax.print.Doc;
 import java.util.List;
 import java.util.Optional;
-
+@Service
+@Component
 public interface DoctorService extends CrudService<DoctorEntity, Integer> {
     @Override
     DoctorEntity create(DoctorEntity entity);
