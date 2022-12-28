@@ -34,9 +34,18 @@ public class RequestSessionEntity {
     private int status;
 
     public RequestSessionEntity() {
+        this.requestId = count.incrementAndGet();
     }
-
-    public RequestSessionEntity(int requestId, int patientId, int doctorId, Time startTime, Time endTime, String sessionName, int status) { 
+    public RequestSessionEntity(int requestId, int patientId, int doctorId, Time startTime, Time endTime, String sessionName, int status) {
+        this.requestId = requestId;
+        this.patientId = patientId;
+        this.doctorId = doctorId;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.sessionName = sessionName;
+        this.status = status;
+    }
+    public RequestSessionEntity(int patientId, int doctorId, Time startTime, Time endTime, String sessionName, int status) {
         this.requestId = count.incrementAndGet();
         this.patientId = patientId;
         this.doctorId = doctorId;
@@ -47,6 +56,7 @@ public class RequestSessionEntity {
     }
 
     public RequestSessionEntity(int patientId, int doctorId, Time startTime, Time endTime, String sessionName) {
+        this.requestId = count.incrementAndGet();
         this.patientId = patientId;
         this.doctorId = doctorId;
         this.startTime = startTime;
