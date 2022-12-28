@@ -31,8 +31,12 @@ Doctor will update the session, so the session will be updated as well as the pa
 
 
 ### 1.4. Server
+
 Server will be implemented in Java Spring. I wil use `jdk18` and `Java 17`. Spring Web will be used
 to provide RestAPI.
+
+#### 1.4.1. How to run server
+Simply run `java build/libs/hospital-0.0.1-SNAPSHOT.jar` in the root directory.
 
 #### API Endpoints:
 ##### 1. Patients:
