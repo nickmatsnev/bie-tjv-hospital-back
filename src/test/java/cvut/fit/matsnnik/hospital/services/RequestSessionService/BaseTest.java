@@ -26,7 +26,7 @@ public class BaseTest {
 
     @BeforeEach
     void setUp(){
-        this.entity = new RequestSessionEntity(123456,
+        this.entity = new RequestSessionEntity(
                 1,
                 1,
                 new Time(11111),

@@ -1,9 +1,6 @@
 package cvut.fit.matsnnik.hospital.api;
 
 import cvut.fit.matsnnik.hospital.api.dtos.RequestModel;
-import cvut.fit.matsnnik.hospital.api.dtos.SessionActualDTO;
-import cvut.fit.matsnnik.hospital.entities.DoctorEntity;
-import cvut.fit.matsnnik.hospital.entities.PatientEntity;
 import cvut.fit.matsnnik.hospital.entities.RequestSessionEntity;
 import cvut.fit.matsnnik.hospital.entities.SessionEntity;
 import cvut.fit.matsnnik.hospital.services.interfaces.DoctorService;
