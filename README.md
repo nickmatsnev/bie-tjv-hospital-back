@@ -1,6 +1,8 @@
 # Hospital System
-## FIT CTU BIE-TJV 2022 semester project,
+## FIT CTU BIE-TJV 2022 semester project, ready for evaluation
 ### by Nikita Matsnev
+
+
 
 ## 1.  Description
 #### 1.1. Domain
@@ -60,6 +62,21 @@ Simply run `java build/libs/hospital-0.0.1-SNAPSHOT.jar` in the root directory.
 `GET /session/patient/{id}` - gets this patient sessions \
 `GET /session/name/{doctor}/{name}` - gets session with this doctor and name \
 `POST /session/name/{doctor}/{name}` - updates session with this doctor and name
+##### 3. Request Sessions:
+`GET /requests/{id}` - gets request session by id \
+`PUT /requests/{id}` - updates request session with id \
+`DELETE /requests/{id}` - deletes request session with id \
+`POST /requests/create` - creates request session with id and given body \
+`GET /requests/doctor/{id}` - gets this doctor request sessions \
+`GET /requests/patient/{id}` - gets this patient request sessions \
+`GET /requests/name/{doctor}/{name}` - gets request session with this doctor and name \
+`POST /requests/name/{doctor}/{name}` - updates request session with this doctor and name \
+`GET /requests/penging/doctor/{doctor}` - get pending request sessions with this doctor \
+`GET /requests/penging/patient/{patient}` - get pending request sessions with this patient \
+`GET /requests/rejected/doctor/{doctor}` - get rejected request sessions with this doctor \
+`GET /requests/rejected/patient/{patient}` - get rejected request sessions with this patient 
+
+
 ### 1.5. Web client
 I am planning on using the Reactive Stack and Spring WebFlux, and I use it. I also use Thymeleaf for templating. And Seneca's letters for contemplating:D.
 
