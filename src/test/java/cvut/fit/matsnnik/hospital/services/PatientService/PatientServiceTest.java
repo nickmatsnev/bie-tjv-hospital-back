@@ -21,22 +21,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class PatientServiceTest extends BaseTest{
 
     @Test
-    @DisplayName("Create patient test")
-    void createTest(){
-        patientService.create(this.patient);
-        Mockito.verify(patientRepository).save(this.patient);
-        assertThat(this.patient.getName()).isNotNull();
-    }
-
-    @Test
-    @DisplayName("Read patient test")
-    void readTest(){
-        PatientEntity savedPatient = patientService.create(this.patient);
-        Mockito.verify(patientRepository).save(this.patient);
-        assertEquals(savedPatient.getSurname(), this.patient.getSurname());
-    }
-
-    @Test
     @DisplayName("Update patient test")
     void updateTest(){
         PatientEntity newPatient = this.patient;

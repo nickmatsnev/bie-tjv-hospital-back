@@ -66,6 +66,9 @@ public class PatientController {
     @GetMapping("/email/{email}")
     public ResponseEntity<PatientDTO> getPatientByEmail(@PathVariable("email") String email){
         PatientEntity patientEntity = patientService.findByEmail(email);
+        if (patientEntity == null) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
         PatientDTO patientDTO = new PatientDTO(patientEntity.getpid(),
                 patientEntity.getEmail(),
                 patientEntity.getName(),

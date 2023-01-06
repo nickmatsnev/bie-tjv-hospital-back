@@ -90,8 +90,8 @@ public class DoctorController {
                 HttpStatus.OK
         );
     }
-    @DeleteMapping("/{id}")
-    public ResponseEntity<String> delete(@PathVariable("id") int id){
+    @DeleteMapping("/{did}")
+    public ResponseEntity<String> delete(@PathVariable("did") int id){
         try {
             doctorService.delete(id);
         } catch(Exception e){

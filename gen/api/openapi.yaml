@@ -1,0 +1,456 @@
+openapi: 3.0.1
+info:
+  contact:
+    email: matsnnik@fit.cvut.cz
+    name: Nikita
+  description: Documentation for backend by swagger
+  title: Documentation
+  version: 1.0.0
+servers:
+- url: http://localhost:8085/
+paths:
+  /doctors/register:
+    post:
+      description: |
+        Registers a new doctor in the system.
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              $ref: '#/components/schemas/DoctorModel'
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: The doctor was registered successfully
+        "409":
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: A doctor with the same ID already exists
+      summary: Register a new doctor
+      x-codegen-request-body-name: doctor
+      x-contentType: '*/*'
+      x-accepts: '*/*'
+  /doctors/login:
+    post:
+      description: |
+        Logs in a doctor by verifying their ID and password.
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              $ref: '#/components/schemas/DoctorLoginDTO'
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: The doctor was logged in successfully
+        "401":
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: The ID and password combination is invalid
+        "404":
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: The doctor with the specified ID was not found
+      summary: Log in a doctor
+      x-codegen-request-body-name: doctor
+      x-contentType: '*/*'
+      x-accepts: '*/*'
+  /doctors/{did}:
+    delete:
+      description: |
+        Deletes the doctor with the specified ID.
+      parameters:
+      - in: path
+        name: did
+        required: true
+        schema:
+          format: int32
+          type: integer
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: The doctor was deleted successfully
+        "404":
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: The doctor with the specified ID was not found
+      summary: Delete a doctor by ID
+      x-accepts: '*/*'
+    get:
+      description: |
+        Returns the doctor with the specified ID.
+      parameters:
+      - in: path
+        name: did
+        required: true
+        schema:
+          format: int32
+          type: integer
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/DoctorModel'
+          description: The requested doctor was returned successfully
+        "404":
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: The doctor with the specified ID was not found
+      summary: Get a doctor by ID
+      x-accepts: '*/*'
+    put:
+      description: |
+        Updates the doctor with the specified ID.
+      parameters:
+      - in: path
+        name: did
+        required: true
+        schema:
+          format: int32
+          type: integer
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              $ref: '#/components/schemas/DoctorModel'
+        required: true
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: The doctor was updated successfully
+        "409":
+          content:
+            '*/*':
+              schema:
+                type: string
+          description: A conflict occurred while updating the doctor
+      summary: Update a doctor by ID
+      x-codegen-request-body-name: doctor
+      x-contentType: '*/*'
+      x-accepts: '*/*'
+  /patients/register:
+    post:
+      description: |
+        Registers a new patient in the system.
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              $ref: '#/components/schemas/PatientDTO'
+        required: true
+      responses:
+        "200":
+          content: {}
+          description: The patient was registered successfully
+        "409":
+          content: {}
+          description: A patient with the same ID already exists
+      summary: Register a new patient
+      x-codegen-request-body-name: patient
+      x-contentType: '*/*'
+      x-accepts: application/json
+  /patients/login:
+    post:
+      description: |
+        Logs in a patient by verifying their email and password.
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              $ref: '#/components/schemas/PatientLoginDTO'
+        required: true
+      responses:
+        "200":
+          content: {}
+          description: The patient was logged in successfully
+        "401":
+          content: {}
+          description: The email and password combination is invalid
+        "404":
+          content: {}
+          description: The patient with the specified email was not found
+      summary: Log in a patient
+      x-codegen-request-body-name: patient
+      x-contentType: '*/*'
+      x-accepts: application/json
+  /patients/{pid}:
+    get:
+      description: |
+        Returns the patient with the specified ID.
+      parameters:
+      - in: path
+        name: pid
+        required: true
+        schema:
+          format: int32
+          type: integer
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PatientLoginDTO'
+          description: The requested patient was returned successfully
+      summary: Get a patient by ID
+      x-accepts: '*/*'
+  /patients/email/{email}:
+    get:
+      description: |
+        Returns the patient with the specified email.
+      parameters:
+      - in: path
+        name: email
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                $ref: '#/components/schemas/PatientDTO'
+          description: The requested patient was returned successfully
+        "404":
+          content: {}
+          description: The patient with the specified email was not found
+      summary: Get a patient by email
+      x-accepts: '*/*'
+  /patients/all:
+    get:
+      description: |
+        Returns a list of all patients in the system.
+      responses:
+        "200":
+          content:
+            '*/*':
+              schema:
+                items:
+                  $ref: '#/components/schemas/PatientDTO'
+                type: array
+          description: The list of patients was returned successfully
+      summary: Get all patients
+      x-accepts: '*/*'
+  /requests/create:
+    post:
+      description: |
+        Creates a new request in the system.
+      requestBody:
+        content:
+          '*/*':
+            schema:
+              $ref: '#/components/schemas/RequestModel'
+        required: true
+      responses:
+        "200":
+          content: {}
+          description: The request was created successfully
+        "409":
+          content: {}
+          description: A request with the same session name already exists
+      summary: Create a new request
+      x-codegen-request-body-name: request
+      x-contentType: '*/*'
+      x-accepts: application/json
+  /requests/{id}:
+    get:
+      description: Returns the request session with the specified ID.
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          format: int32
+          type: integer
+      responses:
+        "200":
+          $ref: '#/definitions/RequestModel'
+      summary: Get request session by ID
+      x-accepts: application/json
+  /requests/pending/doctor/{id}:
+    get:
+      description: Returns the pending request sessions objects for the doctor with
+        the specified ID.
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          format: int32
+          type: integer
+      responses:
+        "200":
+          $ref: '#/definitions/RequestSessionModel'
+      summary: Get pending request sessions objects by doctor ID
+      x-accepts: application/json
+  /requests/rejected/doctor/{id}:
+    get:
+      description: Returns the rejected request sessions objects for the doctor with
+        the specified ID.
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          format: int32
+          type: integer
+      responses:
+        "200":
+          $ref: '#/definitions/RequestSessionModel'
+      summary: Get rejected request sessions objects by doctor ID
+      x-accepts: application/json
+  /requests/pending/patient/{id}:
+    get:
+      description: Returns the pending request sessions objects for the patient with
+        the specified ID.
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          format: int32
+          type: integer
+      responses:
+        "200":
+          $ref: '#/definitions/RequestSessionModel'
+      summary: Get pending request sessions objects by patient ID
+      x-accepts: application/json
+  /requests/rejected/patient/{id}:
+    get:
+      description: Returns the rejected request sessions objects for the doctor with
+        the specified ID.
+      parameters:
+      - in: path
+        name: id
+        required: true
+        schema:
+          format: int32
+          type: integer
+      responses:
+        "200":
+          $ref: '#/definitions/RequestSessionModel'
+      summary: Get rejected request sessions objects by doctor ID
+      x-accepts: application/json
+components:
+  schemas:
+    PatientDTO:
+      example:
+        password: password
+        surname: surname
+        name: name
+        pid: 0
+        email: email
+        age: 6
+      properties:
+        pid:
+          format: int32
+          type: integer
+        email:
+          type: string
+        name:
+          type: string
+        surname:
+          type: string
+        age:
+          format: int32
+          type: integer
+        password:
+          type: string
+      type: object
+    DoctorModel:
+      example:
+        password: password
+        surname: surname
+        dType: dType
+        name: name
+        did: 0
+      properties:
+        did:
+          format: int32
+          type: integer
+        name:
+          type: string
+        surname:
+          type: string
+        dType:
+          type: string
+        password:
+          type: string
+      type: object
+    RequestModel:
+      example:
+        patientId: 0
+        doctorId: 6
+        sessionName: sessionName
+        startTime: startTime
+        endTime: endTime
+      properties:
+        patientId:
+          format: int32
+          type: integer
+        doctorId:
+          format: int32
+          type: integer
+        startTime:
+          format: time
+          type: string
+        endTime:
+          format: time
+          type: string
+        sessionName:
+          type: string
+      required:
+      - doctorId
+      - endTime
+      - patientId
+      - sessionName
+      - startTime
+      type: object
+    SessionActualDTO:
+      properties:
+        plannedStart:
+          format: date-time
+          type: string
+        plannedEnd:
+          format: date-time
+          type: string
+        name:
+          type: string
+        doctor:
+          format: int64
+          type: integer
+        patient:
+          type: string
+      required:
+      - doctor
+      - name
+      - patient
+      - plannedEnd
+      - plannedStart
+      type: object
+x-original-swagger-version: "2.0"
+
