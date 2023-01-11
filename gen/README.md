@@ -2,7 +2,7 @@
 
 Documentation
 - API version: 1.0.0
-  - Build date: 2023-01-06T20:44:24.716928700+01:00[Europe/Prague]
+  - Build date: 2023-01-11T18:54:01.383901500+01:00[Europe/Prague]
 
 Documentation for backend by swagger
 
@@ -85,12 +85,13 @@ public class Example {
     defaultClient.setBasePath("http://localhost:8085");
 
     DefaultApi apiInstance = new DefaultApi(defaultClient);
-    Integer did = 56; // Integer | 
+    String name = "name_example"; // String | 
+    Integer doctor = 56; // Integer | 
+    Integer patient = 56; // Integer | 
     try {
-      String result = apiInstance.doctorsDidDelete(did);
-      System.out.println(result);
+      apiInstance.accept(name, doctor, patient);
     } catch (ApiException e) {
-      System.err.println("Exception when calling DefaultApi#doctorsDidDelete");
+      System.err.println("Exception when calling DefaultApi#accept");
       System.err.println("Status code: " + e.getCode());
       System.err.println("Reason: " + e.getResponseBody());
       System.err.println("Response headers: " + e.getResponseHeaders());
@@ -105,25 +106,33 @@ public class Example {
 
 All URIs are relative to *http://localhost:8085*
 
-Class | Method | HTTP request | Description
------------- | ------------- | ------------- | -------------
-*DefaultApi* | [**doctorsDidDelete**](docs/DefaultApi.md#doctorsDidDelete) | **DELETE** /doctors/{did} | Delete a doctor by ID
-*DefaultApi* | [**doctorsDidGet**](docs/DefaultApi.md#doctorsDidGet) | **GET** /doctors/{did} | Get a doctor by ID
-*DefaultApi* | [**doctorsDidPut**](docs/DefaultApi.md#doctorsDidPut) | **PUT** /doctors/{did} | Update a doctor by ID
-*DefaultApi* | [**doctorsLoginPost**](docs/DefaultApi.md#doctorsLoginPost) | **POST** /doctors/login | Log in a doctor
-*DefaultApi* | [**doctorsRegisterPost**](docs/DefaultApi.md#doctorsRegisterPost) | **POST** /doctors/register | Register a new doctor
-*DefaultApi* | [**patientsAllGet**](docs/DefaultApi.md#patientsAllGet) | **GET** /patients/all | Get all patients
-*DefaultApi* | [**patientsEmailEmailGet**](docs/DefaultApi.md#patientsEmailEmailGet) | **GET** /patients/email/{email} | Get a patient by email
-*DefaultApi* | [**patientsLoginPost**](docs/DefaultApi.md#patientsLoginPost) | **POST** /patients/login | Log in a patient
-*DefaultApi* | [**patientsPidGet**](docs/DefaultApi.md#patientsPidGet) | **GET** /patients/{pid} | Get a patient by ID
-*DefaultApi* | [**patientsRegisterPost**](docs/DefaultApi.md#patientsRegisterPost) | **POST** /patients/register | Register a new patient
-*DefaultApi* | [**requestsCreatePost**](docs/DefaultApi.md#requestsCreatePost) | **POST** /requests/create | Create a new request
-*DefaultApi* | [**requestsIdGet**](docs/DefaultApi.md#requestsIdGet) | **GET** /requests/{id} | Get request session by ID
-*DefaultApi* | [**requestsPendingDoctorIdGet**](docs/DefaultApi.md#requestsPendingDoctorIdGet) | **GET** /requests/pending/doctor/{id} | Get pending request sessions objects by doctor ID
-*DefaultApi* | [**requestsPendingPatientIdGet**](docs/DefaultApi.md#requestsPendingPatientIdGet) | **GET** /requests/pending/patient/{id} | Get pending request sessions objects by patient ID
-*DefaultApi* | [**requestsRejectedDoctorIdGet**](docs/DefaultApi.md#requestsRejectedDoctorIdGet) | **GET** /requests/rejected/doctor/{id} | Get rejected request sessions objects by doctor ID
-*DefaultApi* | [**requestsRejectedPatientIdGet**](docs/DefaultApi.md#requestsRejectedPatientIdGet) | **GET** /requests/rejected/patient/{id} | Get rejected request sessions objects by doctor ID
-
+| Class        | Method                                                                              | HTTP request                                       | Description                                        |
+|--------------|-------------------------------------------------------------------------------------|----------------------------------------------------|----------------------------------------------------|
+| *DefaultApi* | [**accept**](docs/DefaultApi.md#accept)                                             | **GET** /requests/accept/{name}/{doctor}/{patient} |                                                    |
+| *DefaultApi* | [**create**](docs/DefaultApi.md#create)                                             | **POST** /sessions/create                          |                                                    |
+| *DefaultApi* | [**delete**](docs/DefaultApi.md#delete)                                             | **DELETE** /sessions/session/{oid}                 |                                                    |
+| *DefaultApi* | [**doctorsDidDelete**](docs/DefaultApi.md#doctorsDidDelete)                         | **DELETE** /doctors/{did}                          | Delete a doctor by ID                              |
+| *DefaultApi* | [**doctorsDidGet**](docs/DefaultApi.md#doctorsDidGet)                               | **GET** /doctors/{did}                             | Get a doctor by ID                                 |
+| *DefaultApi* | [**doctorsDidPut**](docs/DefaultApi.md#doctorsDidPut)                               | **PUT** /doctors/{did}                             | Update a doctor by ID                              |
+| *DefaultApi* | [**doctorsLoginPost**](docs/DefaultApi.md#doctorsLoginPost)                         | **POST** /doctors/login                            | Log in a doctor                                    |
+| *DefaultApi* | [**doctorsRegisterPost**](docs/DefaultApi.md#doctorsRegisterPost)                   | **POST** /doctors/register                         | Register a new doctor                              |
+| *DefaultApi* | [**get**](docs/DefaultApi.md#get)                                                   | **GET** /sessions/session/{oid}                    |                                                    |
+| *DefaultApi* | [**getByDoctorId**](docs/DefaultApi.md#getByDoctorId)                               | **GET** /sessions/doctor/{id}                      |                                                    |
+| *DefaultApi* | [**getByNameAndDoctor**](docs/DefaultApi.md#getByNameAndDoctor)                     | **GET** /sessions/session/name/{doctor}/{name}     |                                                    |
+| *DefaultApi* | [**getByPatientId**](docs/DefaultApi.md#getByPatientId)                             | **GET** /sessions/patient/{id}                     |                                                    |
+| *DefaultApi* | [**patientsAllGet**](docs/DefaultApi.md#patientsAllGet)                             | **GET** /patients/all                              | Get all patients                                   |
+| *DefaultApi* | [**patientsEmailEmailGet**](docs/DefaultApi.md#patientsEmailEmailGet)               | **GET** /patients/email/{email}                    | Get a patient by email                             |
+| *DefaultApi* | [**patientsLoginPost**](docs/DefaultApi.md#patientsLoginPost)                       | **POST** /patients/login                           | Log in a patient                                   |
+| *DefaultApi* | [**patientsPidGet**](docs/DefaultApi.md#patientsPidGet)                             | **GET** /patients/{pid}                            | Get a patient by ID                                |
+| *DefaultApi* | [**patientsRegisterPost**](docs/DefaultApi.md#patientsRegisterPost)                 | **POST** /patients/register                        | Register a new patient                             |
+| *DefaultApi* | [**reject**](docs/DefaultApi.md#reject)                                             | **GET** /requests/reject/{name}/{doctor}/{patient} |                                                    |
+| *DefaultApi* | [**requestsCreatePost**](docs/DefaultApi.md#requestsCreatePost)                     | **POST** /requests/create                          | Create a new request                               |
+| *DefaultApi* | [**requestsIdGet**](docs/DefaultApi.md#requestsIdGet)                               | **GET** /requests/{id}                             | Get request session by ID                          |
+| *DefaultApi* | [**requestsPendingDoctorIdGet**](docs/DefaultApi.md#requestsPendingDoctorIdGet)     | **GET** /requests/pending/doctor/{id}              | Get pending request sessions objects by doctor ID  |
+| *DefaultApi* | [**requestsPendingPatientIdGet**](docs/DefaultApi.md#requestsPendingPatientIdGet)   | **GET** /requests/pending/patient/{id}             | Get pending request sessions objects by patient ID |
+| *DefaultApi* | [**requestsRejectedDoctorIdGet**](docs/DefaultApi.md#requestsRejectedDoctorIdGet)   | **GET** /requests/rejected/doctor/{id}             | Get rejected request sessions objects by doctor ID |
+| *DefaultApi* | [**requestsRejectedPatientIdGet**](docs/DefaultApi.md#requestsRejectedPatientIdGet) | **GET** /requests/rejected/patient/{id}            | Get rejected request sessions objects by doctor ID |
+| *DefaultApi* | [**update**](docs/DefaultApi.md#update)                                             | **POST** /sessions/session/name/{doctor}/{name}    |                                                    |
 
 ## Documentation for Models
 

@@ -40,4 +40,3 @@ src/main/java/org/openapitools/client/model/DoctorModel.java
 src/main/java/org/openapitools/client/model/PatientDTO.java
 src/main/java/org/openapitools/client/model/RequestModel.java
 src/main/java/org/openapitools/client/model/SessionActualDTO.java
-src/test/java/org/openapitools/client/model/SessionActualDTOTest.java

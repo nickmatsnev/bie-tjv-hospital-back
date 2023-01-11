@@ -144,7 +144,11 @@ public class SessionController {
     public ResponseEntity<String> delete(@PathVariable("oid") int oid){
         try{
             sessionService.delete(oid);
-        } catch (Exception e){
+        }
+        catch (EntityNotFoundException e){
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+        }
+        catch (Exception e){
             throw new ResponseStatusException(HttpStatus.CONFLICT);
         }
         return new ResponseEntity<>(

@@ -92,6 +92,9 @@ public class RequestSessionController {
     @GetMapping("/accept/{name}/{doctor}/{patient}")
     public ResponseEntity accept(@PathVariable("name") String name, @PathVariable("doctor") Integer doctorId, @PathVariable("patient") Integer patientId){
         RequestSessionEntity requestSessionEntity = requestSessionService.getEntityByNameAndDoctorAndPatient(name, doctorId, patientId);
+        if(requestSessionEntity == null){
+            return new ResponseEntity<>("Session with name "+ name + " not found!", HttpStatus.NOT_FOUND);
+        }
         requestSessionEntity.setStatus(1);
         requestSessionService.create(requestSessionEntity);
         SessionEntity sessionEntity = new SessionEntity();
@@ -107,6 +110,9 @@ public class RequestSessionController {
     @GetMapping("/reject/{name}/{doctor}/{patient}")
     public ResponseEntity reject(@PathVariable("name") String name, @PathVariable("doctor") Integer doctorId, @PathVariable("patient") Integer patientId){
         RequestSessionEntity requestSessionEntity = requestSessionService.getEntityByNameAndDoctorAndPatient(name, doctorId, patientId);
+        if(requestSessionEntity == null){
+            return new ResponseEntity<>("Session with name "+ name + " not found!", HttpStatus.NOT_FOUND);
+        }
         System.out.println(name);
         System.out.println(doctorId);
         System.out.println(patientId);

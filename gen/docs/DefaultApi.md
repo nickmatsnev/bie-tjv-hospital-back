@@ -4,23 +4,213 @@ All URIs are relative to *http://localhost:8085*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**accept**](DefaultApi.md#accept) | **GET** /requests/accept/{name}/{doctor}/{patient} | 
+[**create**](DefaultApi.md#create) | **POST** /sessions/create | 
+[**delete**](DefaultApi.md#delete) | **DELETE** /sessions/session/{oid} | 
 [**doctorsDidDelete**](DefaultApi.md#doctorsDidDelete) | **DELETE** /doctors/{did} | Delete a doctor by ID
 [**doctorsDidGet**](DefaultApi.md#doctorsDidGet) | **GET** /doctors/{did} | Get a doctor by ID
 [**doctorsDidPut**](DefaultApi.md#doctorsDidPut) | **PUT** /doctors/{did} | Update a doctor by ID
 [**doctorsLoginPost**](DefaultApi.md#doctorsLoginPost) | **POST** /doctors/login | Log in a doctor
 [**doctorsRegisterPost**](DefaultApi.md#doctorsRegisterPost) | **POST** /doctors/register | Register a new doctor
+[**get**](DefaultApi.md#get) | **GET** /sessions/session/{oid} | 
+[**getByDoctorId**](DefaultApi.md#getByDoctorId) | **GET** /sessions/doctor/{id} | 
+[**getByNameAndDoctor**](DefaultApi.md#getByNameAndDoctor) | **GET** /sessions/session/name/{doctor}/{name} | 
+[**getByPatientId**](DefaultApi.md#getByPatientId) | **GET** /sessions/patient/{id} | 
 [**patientsAllGet**](DefaultApi.md#patientsAllGet) | **GET** /patients/all | Get all patients
 [**patientsEmailEmailGet**](DefaultApi.md#patientsEmailEmailGet) | **GET** /patients/email/{email} | Get a patient by email
 [**patientsLoginPost**](DefaultApi.md#patientsLoginPost) | **POST** /patients/login | Log in a patient
 [**patientsPidGet**](DefaultApi.md#patientsPidGet) | **GET** /patients/{pid} | Get a patient by ID
 [**patientsRegisterPost**](DefaultApi.md#patientsRegisterPost) | **POST** /patients/register | Register a new patient
+[**reject**](DefaultApi.md#reject) | **GET** /requests/reject/{name}/{doctor}/{patient} | 
 [**requestsCreatePost**](DefaultApi.md#requestsCreatePost) | **POST** /requests/create | Create a new request
 [**requestsIdGet**](DefaultApi.md#requestsIdGet) | **GET** /requests/{id} | Get request session by ID
 [**requestsPendingDoctorIdGet**](DefaultApi.md#requestsPendingDoctorIdGet) | **GET** /requests/pending/doctor/{id} | Get pending request sessions objects by doctor ID
 [**requestsPendingPatientIdGet**](DefaultApi.md#requestsPendingPatientIdGet) | **GET** /requests/pending/patient/{id} | Get pending request sessions objects by patient ID
 [**requestsRejectedDoctorIdGet**](DefaultApi.md#requestsRejectedDoctorIdGet) | **GET** /requests/rejected/doctor/{id} | Get rejected request sessions objects by doctor ID
 [**requestsRejectedPatientIdGet**](DefaultApi.md#requestsRejectedPatientIdGet) | **GET** /requests/rejected/patient/{id} | Get rejected request sessions objects by doctor ID
+[**update**](DefaultApi.md#update) | **POST** /sessions/session/name/{doctor}/{name} | 
 
+
+<a name="accept"></a>
+# **accept**
+> accept(name, doctor, patient)
+
+
+
+### Example
+```java
+// Import classes:
+import org.openapitools.client.ApiClient;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.Configuration;
+import org.openapitools.client.models.*;
+import org.openapitools.client.api.DefaultApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("http://localhost:8085");
+
+    DefaultApi apiInstance = new DefaultApi(defaultClient);
+    String name = "name_example"; // String | 
+    Integer doctor = 56; // Integer | 
+    Integer patient = 56; // Integer | 
+    try {
+      apiInstance.accept(name, doctor, patient);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DefaultApi#accept");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **name** | **String**|  |
+ **doctor** | **Integer**|  |
+ **patient** | **Integer**|  |
+
+### Return type
+
+null (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: Not defined
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Success |  -  |
+**404** | Not Found |  -  |
+
+<a name="create"></a>
+# **create**
+> create()
+
+
+
+### Example
+```java
+// Import classes:
+import org.openapitools.client.ApiClient;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.Configuration;
+import org.openapitools.client.models.*;
+import org.openapitools.client.api.DefaultApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("http://localhost:8085");
+
+    DefaultApi apiInstance = new DefaultApi(defaultClient);
+    try {
+      apiInstance.create();
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DefaultApi#create");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+null (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: Not defined
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**201** | Success |  -  |
+**409** | Conflict |  -  |
+
+<a name="delete"></a>
+# **delete**
+> delete(oid)
+
+
+
+### Example
+```java
+// Import classes:
+import org.openapitools.client.ApiClient;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.Configuration;
+import org.openapitools.client.models.*;
+import org.openapitools.client.api.DefaultApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("http://localhost:8085");
+
+    DefaultApi apiInstance = new DefaultApi(defaultClient);
+    Integer oid = 56; // Integer | 
+    try {
+      apiInstance.delete(oid);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DefaultApi#delete");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **oid** | **Integer**|  |
+
+### Return type
+
+null (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: Not defined
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Success |  -  |
+**404** | Not Found |  -  |
+**409** | Conflict |  -  |
 
 <a name="doctorsDidDelete"></a>
 # **doctorsDidDelete**
@@ -340,6 +530,248 @@ No authorization required
 **200** | The doctor was registered successfully |  -  |
 **409** | A doctor with the same ID already exists |  -  |
 
+<a name="get"></a>
+# **get**
+> get(oid)
+
+
+
+### Example
+```java
+// Import classes:
+import org.openapitools.client.ApiClient;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.Configuration;
+import org.openapitools.client.models.*;
+import org.openapitools.client.api.DefaultApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("http://localhost:8085");
+
+    DefaultApi apiInstance = new DefaultApi(defaultClient);
+    Integer oid = 56; // Integer | 
+    try {
+      apiInstance.get(oid);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DefaultApi#get");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **oid** | **Integer**|  |
+
+### Return type
+
+null (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: Not defined
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** |  |  -  |
+**404** | Not Found |  -  |
+
+<a name="getByDoctorId"></a>
+# **getByDoctorId**
+> getByDoctorId(id)
+
+
+
+### Example
+```java
+// Import classes:
+import org.openapitools.client.ApiClient;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.Configuration;
+import org.openapitools.client.models.*;
+import org.openapitools.client.api.DefaultApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("http://localhost:8085");
+
+    DefaultApi apiInstance = new DefaultApi(defaultClient);
+    Integer id = 56; // Integer | 
+    try {
+      apiInstance.getByDoctorId(id);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DefaultApi#getByDoctorId");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **Integer**|  |
+
+### Return type
+
+null (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: Not defined
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** |  |  -  |
+**404** | Not Found |  -  |
+
+<a name="getByNameAndDoctor"></a>
+# **getByNameAndDoctor**
+> getByNameAndDoctor(doctor, name)
+
+
+
+### Example
+```java
+// Import classes:
+import org.openapitools.client.ApiClient;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.Configuration;
+import org.openapitools.client.models.*;
+import org.openapitools.client.api.DefaultApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("http://localhost:8085");
+
+    DefaultApi apiInstance = new DefaultApi(defaultClient);
+    Integer doctor = 56; // Integer | 
+    String name = "name_example"; // String | 
+    try {
+      apiInstance.getByNameAndDoctor(doctor, name);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DefaultApi#getByNameAndDoctor");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **doctor** | **Integer**|  |
+ **name** | **String**|  |
+
+### Return type
+
+null (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: Not defined
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** |  |  -  |
+**404** | Not Found |  -  |
+
+<a name="getByPatientId"></a>
+# **getByPatientId**
+> getByPatientId(id)
+
+
+
+### Example
+```java
+// Import classes:
+import org.openapitools.client.ApiClient;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.Configuration;
+import org.openapitools.client.models.*;
+import org.openapitools.client.api.DefaultApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("http://localhost:8085");
+
+    DefaultApi apiInstance = new DefaultApi(defaultClient);
+    Integer id = 56; // Integer | 
+    try {
+      apiInstance.getByPatientId(id);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DefaultApi#getByPatientId");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **Integer**|  |
+
+### Return type
+
+null (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: Not defined
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** |  |  -  |
+**404** | Not Found |  -  |
+
 <a name="patientsAllGet"></a>
 # **patientsAllGet**
 > List&lt;PatientDTO&gt; patientsAllGet()
@@ -647,6 +1079,70 @@ No authorization required
 |-------------|-------------|------------------|
 **200** | The patient was registered successfully |  -  |
 **409** | A patient with the same ID already exists |  -  |
+
+<a name="reject"></a>
+# **reject**
+> reject(name, doctor, patient)
+
+
+
+### Example
+```java
+// Import classes:
+import org.openapitools.client.ApiClient;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.Configuration;
+import org.openapitools.client.models.*;
+import org.openapitools.client.api.DefaultApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("http://localhost:8085");
+
+    DefaultApi apiInstance = new DefaultApi(defaultClient);
+    String name = "name_example"; // String | 
+    Integer doctor = 56; // Integer | 
+    Integer patient = 56; // Integer | 
+    try {
+      apiInstance.reject(name, doctor, patient);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DefaultApi#reject");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **name** | **String**|  |
+ **doctor** | **Integer**|  |
+ **patient** | **Integer**|  |
+
+### Return type
+
+null (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: Not defined
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Success |  -  |
+**404** | Not Found |  -  |
 
 <a name="requestsCreatePost"></a>
 # **requestsCreatePost**
@@ -1014,4 +1510,67 @@ No authorization required
 | Status code | Description | Response headers |
 |-------------|-------------|------------------|
 **200** |  |  -  |
+
+<a name="update"></a>
+# **update**
+> update(doctor, name)
+
+
+
+### Example
+```java
+// Import classes:
+import org.openapitools.client.ApiClient;
+import org.openapitools.client.ApiException;
+import org.openapitools.client.Configuration;
+import org.openapitools.client.models.*;
+import org.openapitools.client.api.DefaultApi;
+
+public class Example {
+  public static void main(String[] args) {
+    ApiClient defaultClient = Configuration.getDefaultApiClient();
+    defaultClient.setBasePath("http://localhost:8085");
+
+    DefaultApi apiInstance = new DefaultApi(defaultClient);
+    Integer doctor = 56; // Integer | 
+    String name = "name_example"; // String | 
+    try {
+      apiInstance.update(doctor, name);
+    } catch (ApiException e) {
+      System.err.println("Exception when calling DefaultApi#update");
+      System.err.println("Status code: " + e.getCode());
+      System.err.println("Reason: " + e.getResponseBody());
+      System.err.println("Response headers: " + e.getResponseHeaders());
+      e.printStackTrace();
+    }
+  }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **doctor** | **Integer**|  |
+ **name** | **String**|  |
+
+### Return type
+
+null (empty response body)
+
+### Authorization
+
+No authorization required
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: Not defined
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+**200** | Success |  -  |
+**404** | Not Found |  -  |
+**409** | Conflict |  -  |
 

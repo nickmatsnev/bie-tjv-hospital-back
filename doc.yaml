@@ -286,10 +286,148 @@ paths:
         200:
           description: The requested rejected request sessions were returned successfully
           $ref: '#/definitions/RequestSessionModel'
-
-
-
-
+  /requests/accept/{name}/{doctor}/{patient}:
+    get:
+      operationId: accept
+      parameters:
+        - name: name
+          in: path
+          required: true
+          type: string
+        - name: doctor
+          in: path
+          required: true
+          type: integer
+        - name: patient
+          in: path
+          required: true
+          type: integer
+      responses:
+        200:
+          description: Success
+        404:
+          description: Not Found
+  /requests/reject/{name}/{doctor}/{patient}:
+    get:
+      operationId: reject
+      parameters:
+        - name: name
+          in: path
+          required: true
+          type: string
+        - name: doctor
+          in: path
+          required: true
+          type: integer
+        - name: patient
+          in: path
+          required: true
+          type: integer
+      responses:
+        200:
+          description: Success
+        404:
+          description: Not Found
+  /sessions/create:
+    post:
+      operationId: create
+      responses:
+        201:
+          description: Success
+        409:
+          description: Conflict
+  /sessions/session/{oid}:
+    get:
+      operationId: get
+      parameters:
+        - name: oid
+          in: path
+          required: true
+          type: integer
+      responses:
+        200:
+          description: Success
+          $ref: '#/components/schemas/SessionActualDTO'
+        404:
+          description: Not Found
+    delete:
+      operationId: delete
+      parameters:
+        - name: oid
+          in: path
+          required: true
+          type: integer
+      responses:
+        200:
+          description: Success
+        404:
+          description: Not Found
+        409:
+          description: Conflict
+  /sessions/session/name/{doctor}/{name}:
+    get:
+      operationId: getByNameAndDoctor
+      parameters:
+        - name: doctor
+          in: path
+          required: true
+          type: integer
+        - name: name
+          in: path
+          required: true
+          type: string
+      responses:
+        200:
+          description: Success
+          $ref: '#/components/schemas/SessionActualDTO'
+        404:
+          description: Not Found
+    post:
+      operationId: update
+      parameters:
+        - name: doctor
+          in: path
+          required: true
+          type: integer
+        - name: name
+          in: path
+          required: true
+          type: string
+      responses:
+        200:
+          description: Success
+        409:
+          description: Conflict
+        404:
+          description: Not Found
+  /sessions/patient/{id}:
+    get:
+      operationId: getByPatientId
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: integer
+      responses:
+        200:
+          description: Success
+          $ref: '#/components/schemas/SessionModel'
+        404:
+          description: Not Found
+  /sessions/doctor/{id}:
+    get:
+      operationId: getByDoctorId
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: integer
+      responses:
+        200:
+          description: Success
+          $ref: '#/components/schemas/SessionModel'
+        404:
+          description: Not Found
 definitions:
   PatientDTO:
     type: object
