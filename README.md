@@ -41,6 +41,9 @@ to provide RestAPI.
 Simply run `java build/libs/hospital-0.0.1-SNAPSHOT.jar` in the root directory.
 
 #### API Endpoints:
+
+[Link to OpenAPI ReadMe file](gen/README.md)
+
 ##### 1. Patients:
 `GET /patients/{id}` - gets patient by id \
 `PUT /patients/{id}` - updates patient with id \
