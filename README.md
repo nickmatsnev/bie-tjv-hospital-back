@@ -38,17 +38,18 @@ Doctor will update the session, so the session will be updated as well as the pa
 Server will be implemented in Java Spring. I wil use `jdk18` and `Java 17`. Spring Web will be used
 to provide RestAPI.
 
-#### 1.4.1. How to run server
-Simply run `java build/libs/hospital-0.0.1-SNAPSHOT.jar` in the root directory.
+#### 1.4.1. How to run server(Linux/Mac/WSL)
 
-#### 1.4.2. How to run the server - second option
-
-If the first option did not work, there is another way:
-
-* create a postgres database at 127.0.0.1:5432 eith usrr postgres and password 1234 or specify your database in application.properties file. 
-* clone this repository 
-* run gradle build in directory root
-* run .jar file like in the first option or run the oroject throughj IDE. 
+Install Java 17
+```
+sudo apt install openjdk-17-jre-headless
+```
+Go to build/libs:
+```
+cd build/libs ; \
+java -jar hospital-0.0.1-SNAPSHOT.jar
+```
+It will run!
 
 #### API Endpoints:
 
