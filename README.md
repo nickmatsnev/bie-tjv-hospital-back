@@ -41,6 +41,15 @@ to provide RestAPI.
 #### 1.4.1. How to run server
 Simply run `java build/libs/hospital-0.0.1-SNAPSHOT.jar` in the root directory.
 
+#### 1.4.2. How to run the server - second option
+
+If the first option did not work, there is another way:
+
+* create a postgres database at 127.0.0.1:5432 eith usrr postgres and password 1234 or specify your database in application.properties file. 
+* clone this repository 
+* run gradle build in directory root
+* run .jar file like in the first option or run the oroject throughj IDE. 
+
 #### API Endpoints:
 
 [Link to OpenAPI ReadMe file](gen/README.md)
